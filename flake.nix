@@ -2,18 +2,40 @@
   description = "Example Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-  };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    darwin-emacs = {
+      url = "github:c4710n/nix-darwin-emacs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    darwin-emacs-packages = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+  outputs = inputs@{ self, darwin, darwin-emacs, darwin-emacs-packages, nixpkgs }:
   let
     configuration = { pkgs, ... }: {
+      nixpkgs = {
+        hostPlatform = "aarch64-darwin";
+        overlays = [
+           # 1. use `emacs` overlay provided by this repo
+           darwin-emacs.overlays.emacs
+           # 2. use `package` overlay provided by nix-community/emacs-overlay
+           darwin-emacs-packages.overlays.package
+         ];
+      };
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.vim
+        with pkgs; [ 
+          vim
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -35,14 +57,13 @@
       system.stateVersion = 4;
 
       # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
     };
   in
   {
-    # Build darwin flake using:
     imports = [ <home-manager/nix-darwin> ];
+    # Build darwin flake using:
     # $ darwin-rebuild build --flake .#air
-    darwinConfigurations."air" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."air" = darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
 
