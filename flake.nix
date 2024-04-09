@@ -40,6 +40,7 @@
   in
   {
     # Build darwin flake using:
+    imports = [ <home-manager/nix-darwin> ];
     # $ darwin-rebuild build --flake .#air
     darwinConfigurations."air" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
