@@ -2,7 +2,7 @@
   description = "Example Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
