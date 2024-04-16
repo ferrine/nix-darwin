@@ -18,10 +18,15 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs@{ self, darwin, darwin-emacs, darwin-emacs-packages, nixpkgs }:
+  outputs = inputs@{ self, home-manager, darwin, darwin-emacs, darwin-emacs-packages, nixpkgs }:
   let
     configuration = { pkgs, ... }: {
+      imports = [ ];
       nixpkgs = {
         hostPlatform = "aarch64-darwin";
         overlays = [
@@ -57,14 +62,13 @@
       system.stateVersion = 4;
 
       # The platform the configuration will be used on.
-      users.users.eve = {
+      users.users.ferres = {
         name = "ferres";
         home = "/Users/ferres";
       };
     };
   in
   {
-    imports = [ <home-manager/nix-darwin> ];
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#air
     darwinConfigurations."air" = darwin.lib.darwinSystem {
