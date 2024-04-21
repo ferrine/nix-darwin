@@ -3,9 +3,12 @@
   nixpkgs = {
     hostPlatform = "aarch64-darwin";
     overlays = with inputs; [
-       # 2. use `package` overlay provided by nix-community/emacs-overlay
-       darwin-emacs-packages.overlays.package
-     ];
+      # 2. use `package` overlay provided by nix-community/emacs-overlay
+      darwin-emacs.overlays.emacs
+      darwin-emacs-packages.overlays.package
+      # do not ocasionally reference old emacs
+      (self: super: { emacs = super.emacs-29; })
+    ];
   };
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -21,7 +24,7 @@
   nix.settings.experimental-features = "nix-command flakes";
 
   # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
+  programs.zsh.enable = true; # default shell on catalina
   # programs.fish.enable = true;
 
   # Set Git commit hash for darwin-version.

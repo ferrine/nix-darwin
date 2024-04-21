@@ -8,14 +8,14 @@
   # environment.
   home.stateVersion = home-version;
   home.packages = with pkgs; [
-    emacs
+
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = { };
-
-  home.sessionVariables = {
-    EDITOR = "emacs";
+  programs = {
+    emacs = import ./apps/emacs {inherit pkgs; };
+    home-manager.enable = true;
   };
 }
