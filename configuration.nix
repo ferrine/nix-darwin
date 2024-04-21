@@ -3,8 +3,6 @@
   nixpkgs = {
     hostPlatform = "aarch64-darwin";
     overlays = with inputs; [
-       # 1. use `emacs` overlay provided by this repo
-       darwin-emacs.overlays.emacs
        # 2. use `package` overlay provided by nix-community/emacs-overlay
        darwin-emacs-packages.overlays.package
      ];
@@ -13,7 +11,6 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     with pkgs; [
-      emacs
     ];
 
   # Auto upgrade nix package and the daemon service.
