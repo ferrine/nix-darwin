@@ -2,5 +2,5 @@
   :ensure t
   :config
   ;; your preferred main font face here
-  (set-frame-font "Inconsolata-14"))
+  (set-frame-font "IBM Plex Mono"))
 (load-theme 'darcula)
