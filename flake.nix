@@ -33,7 +33,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.ferres = import ./users/ferres/home.nix {home-version = "23.11";};
+            home-manager.users.ferres = import ./home.nix {home-version = "23.11";};
           }
         ];
         specialArgs = { inherit inputs self; };
