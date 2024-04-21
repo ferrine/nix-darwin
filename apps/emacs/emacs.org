@@ -1,3 +1,5 @@
+;; Theme
+
 (use-package darcula-theme
   :ensure t
   :config
