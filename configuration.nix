@@ -40,4 +40,8 @@
     name = "ferres";
     home = "/Users/ferres";
   };
+  system.activationScripts.script.text = ''
+  # remove broken links from Dock
+  defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+  '';
 }
