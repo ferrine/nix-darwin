@@ -7,8 +7,6 @@
   # environment.
   home.stateVersion = home-version;
   home.packages = with pkgs; [
-    inconsolata
-    ibm-plex
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

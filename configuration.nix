@@ -3,11 +3,7 @@
   nixpkgs = {
     hostPlatform = "aarch64-darwin";
     overlays = with inputs; [
-      # 2. use `package` overlay provided by nix-community/emacs-overlay
-      darwin-emacs.overlays.emacs
-      darwin-emacs-packages.overlays.package
-      # do not ocasionally reference old emacs
-      (self: super: { emacs = super.emacs-29; })
+      emacs-packages.overlays.package
     ];
   };
   # List packages installed in system profile. To search by name, run:
@@ -40,8 +36,4 @@
     name = "ferres";
     home = "/Users/ferres";
   };
-  system.activationScripts.script.text = ''
-  # remove broken links from Dock
-  defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
-  '';
 }

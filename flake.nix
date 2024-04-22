@@ -1,28 +1,24 @@
 {
   description = "Example Darwin system flake";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    darwin-emacs = {
-      url = "github:c4710n/nix-darwin-emacs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    darwin-emacs-packages = {
+    emacs-packages = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, home-manager, darwin, darwin-emacs, darwin-emacs-packages, nixpkgs }:
+  outputs = inputs@{ self, home-manager, darwin, emacs-packages, nixpkgs }:
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#air
@@ -33,7 +29,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.ferres = import ./home.nix {home-version = "23.11";};
+            home-manager.users.ferres = import ./home.nix {home-version = "24.05";};
           }
         ];
         specialArgs = { inherit inputs self; };
