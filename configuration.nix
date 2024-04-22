@@ -10,9 +10,8 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     with pkgs; [
-      (callPackage ./apps/emacs {})
+      (callPackage ./apps/emacs { })
     ];
-
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;

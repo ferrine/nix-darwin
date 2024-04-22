@@ -1,8 +1,0 @@
-;; Theme
-
-(use-package darcula-theme
-  :ensure t
-  :config
-  ;; your preferred main font face here
-  (set-frame-font "IBM Plex Mono"))
-(load-theme 'darcula)

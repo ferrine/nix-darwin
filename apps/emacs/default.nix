@@ -8,11 +8,9 @@ emacsWithPackages (
     with epkgs; [
       magit # ; Integrate git <C-x g>
       darcula-theme # ; Nice theme
+      treesit-grammars.with-all-grammars
   ]) ++ (
-    # Available fonts
-    with pkgs; [
-      inconsolata
-      ibm-plex
-    ]
+    # Smth else
+    []
   )
 )
