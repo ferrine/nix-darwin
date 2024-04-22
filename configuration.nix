@@ -13,10 +13,18 @@
     with pkgs; [
       (callPackage ./apps/emacs { })
     ];
-  # to not become pinky
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToControl = true;
+  system = {
+    keyboard = {
+      # to not become pinky
+      enableKeyMapping = true;
+      remapCapsLockToControl = true;
+    };
+    defaults.dock = {
+      launchanim = false;
+      persistent-apps = [
+        "/Applications/Nix\ Apps/Emacs.app"
+      ];
+    };
   };
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

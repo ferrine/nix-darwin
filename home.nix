@@ -18,6 +18,5 @@
   # plain files is through 'home.file'.
   home.file = { };
   programs = {
-    home-manager.enable = true;
   };
 }
