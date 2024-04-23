@@ -19,11 +19,13 @@
       enableKeyMapping = true;
       remapCapsLockToControl = true;
     };
-    defaults.dock = {
-      launchanim = false;
-      persistent-apps = [
-        "/Applications/Nix\ Apps/Emacs.app"
-      ];
+    defaults = {
+      dock = {
+        launchanim = false;
+        persistent-apps = [
+          "/Applications/Nix\ Apps/Emacs.app"
+        ];
+      };
     };
   };
   # Auto upgrade nix package and the daemon service.
