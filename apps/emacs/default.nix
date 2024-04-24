@@ -11,6 +11,9 @@ emacsWithPackages (
       treesit-grammars.with-all-grammars
   ]) ++ (
     # Smth else
-    []
-  )
+    with epkgs.melpaPackages; [
+      nix-ts-mode
+      elixir-ts-mode
+      treesit-auto
+  ])
 )

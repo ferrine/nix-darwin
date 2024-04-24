@@ -22,9 +22,6 @@
     defaults = {
       dock = {
         launchanim = false;
-        persistent-apps = [
-          "/Applications/Nix\ Apps/Emacs.app"
-        ];
       };
     };
   };

@@ -1,4 +1,4 @@
-{ home-version }: { config, pkgs, ... }:
+{ home-version }: { config, pkgs, lib, ... }:
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -12,11 +12,11 @@
         inconsolata
         ibm-plex
       ];
+      develop = with pkgs; [
+      ];
     in
-    fonts;
+    fonts ++ develop;
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = { };
-  programs = {
-  };
 }
