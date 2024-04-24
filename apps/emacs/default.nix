@@ -7,7 +7,6 @@ emacsWithPackages (
   epkgs: (
     with epkgs; [
       magit # ; Integrate git <C-x g>
-      darcula-theme # ; Nice theme
       treesit-grammars.with-all-grammars
   ]) ++ (
     # Smth else
@@ -15,5 +14,8 @@ emacsWithPackages (
       nix-ts-mode
       elixir-ts-mode
       treesit-auto
+      telega
+      projectile
+      helm
   ])
 )
