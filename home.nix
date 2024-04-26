@@ -33,6 +33,7 @@ in
             helm
             vterm
             languagetool
+            s
           ]) ++ (with pkgs; [
             jdk17_headless
             languagetool
@@ -42,6 +43,10 @@ in
   home.stateVersion = home-version;
   home.packages =
     let
+      utilities = with pkgs; [
+        fzf
+        silver-searcher
+      ];
       fonts = with pkgs; [
         inconsolata
         ibm-plex
@@ -61,10 +66,13 @@ in
         csharp-ls
       ];
     in
-    fonts ++ formatters ++ lsp;
+    fonts ++ formatters ++ lsp ++ utilities;
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".emacs.d/init.el".source = ./dotfiles/.emacs.d/init.el;
+    ".emacs.d" = {
+      source = ./dotfiles/.emacs.d;
+      recursive = true;
+    };
   };
 }

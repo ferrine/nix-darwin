@@ -7,6 +7,8 @@
 ;; Developement
 (setq-default indent-tabs-mode nil)
 
+(load "~/.emacs.d/lib/helm-fzf.el")
+
 (use-package nix-ts-mode
   :mode "\\.nix\\'")
 ;; treesitter remapping
