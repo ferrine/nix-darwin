@@ -9,10 +9,6 @@
   # https://mynixos.com/nix-darwin/options
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    with pkgs; [
-      (callPackage ./apps/emacs { })
-    ];
   system = {
     keyboard = {
       # to not become pinky
