@@ -43,6 +43,8 @@ in
   home.stateVersion = home-version;
   home.packages =
     let
+      programs = with pkgs; [
+      ];
       utilities = with pkgs; [
         fzf
         silver-searcher
@@ -66,7 +68,7 @@ in
         csharp-ls
       ];
     in
-    fonts ++ formatters ++ lsp ++ utilities;
+    fonts ++ formatters ++ lsp ++ utilities ++ programs;
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
