@@ -4,6 +4,17 @@
 (load-theme `modus-operandi)
 (setq display-line-numbers-type 'relative)
 (scroll-bar-mode -1)
+(display-time-mode t)
+(setq world-clock-list
+      '(("Europe/Moscow" "EU/Moscow")
+        ("Europe/Berlin" "EU/Berlin")
+        ("Europe/London" "EU/London")
+        ("Europe/Budapest" "EU/Budapest")
+        ("America/New_York" "US/New York")
+        ("Etc/UTC" "*UTC*")
+        ("Asia/Bangkok" "AS/Bangkok")))
+
+  (setq world-clock-time-format "%a, %d %b %I:%M %p %Z")
 
 ;; Navigation
 
