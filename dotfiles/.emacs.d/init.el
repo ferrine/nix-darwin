@@ -4,14 +4,23 @@
 (load-theme `modus-operandi)
 (scroll-bar-mode -1)
 
+;; Navigation
+
+(use-package winner
+  :hook after-init
+  :commands (winner-undo winnner-redo)
+  :custom
+  (winner-boring-buffers '("*Completions*" "*Help*" "*Apropos*"
+                           "*Buffer List*" "*info*" "*Compile-Log*")))
+
 ;; Developement
 (setq-default indent-tabs-mode nil)
 
-(load "~/.emacs.d/lib/helm-fzf.el")
+
+;; Treesitter remapping
 
 (use-package nix-ts-mode
   :mode "\\.nix\\'")
-;; treesitter remapping
 
 (setq major-mode-remap-alist
       '((yaml-mode . yaml-ts-mode)
@@ -25,6 +34,7 @@
         (nix-mode . nix-ts-mode)
         (js-mode . js-ts-mode)))
 
+;; Helm related stuff
 
 (use-package helm
   :config
@@ -33,12 +43,19 @@
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring))
 
+(load "~/.emacs.d/lib/helm-fzf.el")
+
+;; IDE Features
+
 (use-package eglot
   :defer t
   :hook ((python-ts-mode . eglot-ensure)
          (nix-ts-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd"))))
+  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd")))
+  (add-to-list 'eglot-server-programs '(elixir-ts-mode . ("elixir-ls"))))
+
+;; Writing
 
 (use-package languagetool
   :defer t
