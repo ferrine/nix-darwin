@@ -34,6 +34,7 @@ in
             vterm
             languagetool
             s
+            ag
           ]) ++ (with pkgs; [
             jdk17_headless
             languagetool

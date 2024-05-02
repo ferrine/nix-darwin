@@ -55,6 +55,8 @@
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring))
 
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 (load "~/.emacs.d/lib/helm-fzf.el")
 
 ;; IDE Features
@@ -66,6 +68,12 @@
   :config
   (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd")))
   (add-to-list 'eglot-server-programs '(elixir-ts-mode . ("elixir-ls"))))
+
+(use-package projectile
+  :init
+  (projectile-mode t)
+  :bind (:map projectile-mode-map
+              ("M-p" . projectile-command-map)))
 
 ;; Writing
 
