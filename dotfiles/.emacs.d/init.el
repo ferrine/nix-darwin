@@ -73,7 +73,9 @@
   :init
   (projectile-mode t)
   :bind (:map projectile-mode-map
-              ("M-p" . projectile-command-map)))
+              ("M-p" . projectile-command-map))
+  :config
+  (setq projectile-completion-system 'helm))
 
 ;; Writing
 
