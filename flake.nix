@@ -19,6 +19,9 @@
     };
   };
   outputs = inputs@{ self, home-manager, darwin, emacs-packages, nixpkgs }:
+    let
+      home-version = "24.05";
+    in
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#air
@@ -29,7 +32,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.ferres = import ./home.nix {home-version = "24.05";};
+            home-manager.users.ferres = import ./home.nix {inherit home-version;};
           }
         ];
         specialArgs = { inherit inputs self; };
@@ -37,5 +40,15 @@
 
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations.air.pkgs;
+      homeConfigurations.dev = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [ (import ./dev.nix {inherit home-version; user = "ferres";})];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+      };
     };
 }
