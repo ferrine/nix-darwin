@@ -44,4 +44,9 @@
     name = "ferres";
     home = "/Users/ferres";
   };
+  
+  system.activationScripts.extraUserActivation.text = ''
+    # disable Command Meta D Dict lookup
+    defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 70 '<dict><key>enabled</key><false/></dict>'
+  '';
 }
