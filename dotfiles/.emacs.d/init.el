@@ -28,6 +28,10 @@
 ;; Developement
 (setq-default indent-tabs-mode nil)
 
+;; Tramp
+(use-package tramp
+  :config
+  (add-to-list 'tramp-remote-path "~/.nix-profile/bin/"))
 
 ;; Treesitter remapping
 
@@ -55,7 +59,96 @@
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring))
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(use-package ibuffer
+  :bind ("C-x C-b" . ibuffer)
+  :custom
+  (ibuffer-default-display-maybe-show-predicates t)
+  (ibuffer-expert t)
+  (ibuffer-formats
+   '((mark modified read-only " "
+           (name 16 -1)
+           " "
+           (size 6 -1 :right)
+           " "
+           (mode 16 16)
+           " " filename)
+     (mark " "
+           (name 16 -1)
+           " " filename)))
+  (ibuffer-maybe-show-regexps nil)
+  (ibuffer-saved-filter-groups
+   '(("default"
+      ("Magit"
+       (or
+        (mode . magit-status-mode)
+        (mode . magit-log-mode)
+        (name . "\\*magit")
+        (name . "magit-")
+        (name . "git-monitor")))
+      ("Coq"
+       (or
+        (mode . coq-mode)
+        (name . "\\<coq\\>")
+        (name . "_CoqProject")))
+      ("Commands"
+       (or
+        (mode . shell-mode)
+        (mode . eshell-mode)
+        (mode . term-mode)
+        (mode . compilation-mode)))
+      ("Haskell"
+       (or
+        (mode . haskell-mode)
+        (mode . haskell-cabal-mode)
+        (mode . haskell-literate-mode)))
+      ("Rust"
+       (or
+        (mode . rust-mode)
+        (mode . cargo-mode)
+        (name . "\\*Cargo")
+        (name . "^\\*rls\\(::stderr\\)?\\*")
+        (name . "eglot")))
+      ("Nix"
+       (mode . nix-mode))
+      ("C++"
+       (or
+        (mode . c-mode)
+        (mode . c++-mode)))
+      ("Lisp"
+       (mode . emacs-lisp-mode))
+      ("Dired"
+       (mode . dired-mode))
+      ("Gnus"
+       (or
+        (mode . message-mode)
+        (mode . mail-mode)
+        (mode . gnus-group-mode)
+        (mode . gnus-summary-mode)
+        (mode . gnus-article-mode)
+        (name . "^\\.newsrc-dribble")
+        (name . "^\\*\\(sent\\|unsent\\|fetch\\)")
+        (name . "^ \\*\\(nnimap\\|nntp\\|nnmail\\|gnus\\|server\\|mm\\*\\)")
+        (name . "\\(Original Article\\|canonical address\\|extract address\\)")))
+      ("Org"
+       (or
+        (name . "^\\*Calendar\\*$")
+        (name . "^\\*Org Agenda")
+        (name . "^ \\*Agenda")
+        (name . "^diary$")
+        (mode . org-mode)))
+      ("Emacs"
+       (or
+        (name . "^\\*scratch\\*$")
+        (name . "^\\*Messages\\*$")
+        (name . "^\\*\\(Customize\\|Help\\)")
+        (name . "\\*\\(Echo\\|Minibuf\\)"))))))
+  (ibuffer-show-empty-filter-groups nil)
+  (ibuffer-shrink-to-minimum-size t t)
+  (ibuffer-use-other-window t)
+  :init
+  (add-hook 'ibuffer-mode-hook
+            #'(lambda ()
+                (ibuffer-switch-to-saved-filter-groups "default"))))
 
 (load "~/.emacs.d/lib/helm-fzf.el")
 
@@ -89,3 +182,7 @@
              languagetool-server-mode
              languagetool-server-start
              languagetool-server-stop))
+
+;; Vterm
+(use-package vterm
+  :defer t)
