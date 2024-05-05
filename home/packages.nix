@@ -18,6 +18,7 @@ in
         fzf
         silver-searcher
         clang-tools
+        languagetool
       ];
       fonts = with pkgs; [
         inconsolata
@@ -30,14 +31,6 @@ in
         yamlfmt
         cmake-format
       ];
-      lsp = with pkgs; [
-        languagetool
-        nixd
-        elixir-ls
-        python3Packages.python-lsp-server
-        ccls
-        csharp-ls
-      ];
       linux = with pkgs; [
         cntr
       ];
@@ -45,7 +38,6 @@ in
     lib.flatten [
       fonts
       formatters
-      lsp
       utilities
       programs
       (lib.optionals isLinux linux)

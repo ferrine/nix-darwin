@@ -1,0 +1,43 @@
+{pkgs, config, lib, dot, ...} : {
+  config = lib.mkIf config.programs.emacs.enable {
+    programs = {
+      emacs = {
+        package = pkgs.emacs29-macport;
+        extraConfig = ''
+      (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8"
+                                          "-cp" "${pkgs.languagetool}/share/languagetool-server.jar:${pkgs.languagetool}/share/languagetool-commandline.jar")
+            languagetool-java-bin "${pkgs.jdk17_headless}/bin/java"
+            languagetool-console-command "org.languagetool.commandline.Main"
+            languagetool-server-command "org.languagetool.server.HTTPServer")
+    '';
+        extraPackages = epkgs: (
+          with epkgs; [
+            magit # ; Integrate git <C-x g>
+            treesit-grammars.with-all-grammars
+          ]) ++ (
+            # Smth else
+            with epkgs.melpaPackages; [
+              nix-ts-mode
+              elixir-ts-mode
+              telega
+              projectile
+              helm
+              vterm
+              languagetool
+              s
+              ag
+            ]) ++ (with pkgs; [
+              jdk17_headless
+              languagetool
+            ]);
+      };
+    };
+    home.file = {
+      ".emacs.d" = {
+        source = (dot ".emacs.d");
+        recursive = true;
+      };
+    };
+
+  };
+}

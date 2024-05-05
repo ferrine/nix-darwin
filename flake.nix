@@ -38,16 +38,23 @@
           ./configuration.nix
           home-manager.darwinModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ferres = import ./home.nix {inherit home-version;};
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.ferres = import ./laptop.nix {inherit home-version;};
+              extraSpecialArgs = {
+                dot = path: "${./dotfiles}/${path}";
+              };
+            };
           }
         ];
-        specialArgs = { inherit self inputs; };
+        specialArgs = {
+          # to set revision
+          inherit self inputs;
+        };
+        
       };
 
-      # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations.air.pkgs;
       homeConfigurations.dev = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
 
@@ -57,6 +64,9 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+        extraSpecialArgs = {
+          dot = path: "${./dotfiles}/${path}";
+        };
       };
     };
 }
