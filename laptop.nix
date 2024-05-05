@@ -7,11 +7,9 @@
   # environment.
   imports = [
     ./home/packages.nix
-    ./home/lsp.nix
     ./home/emacs.nix
   ];
   programs.emacs.enable = true;
-  stuff.lsp.enable = true;
   home.stateVersion = home-version;
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
