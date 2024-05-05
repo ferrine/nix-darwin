@@ -159,8 +159,16 @@
   :hook ((python-ts-mode . eglot-ensure)
          (nix-ts-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd")))
-  (add-to-list 'eglot-server-programs '(elixir-ts-mode . ("elixir-ls"))))
+  (add-to-list
+   'eglot-server-programs
+   '(nix-ts-mode
+     . ("nixd")))
+  (add-to-list 'eglot-server-programs '(elixir-ts-mode . ("elixir-ls")))
+  (setq-default
+   eglot-workspace-configuration
+   '(:nixd
+     (:nixpkgs
+      (:expr "import <nixpkgs> { }")))))
 
 (use-package projectile
   :init

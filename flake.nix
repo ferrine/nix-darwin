@@ -27,6 +27,14 @@
       # $ darwin-rebuild build --flake .#air
       darwinConfigurations.air = darwin.lib.darwinSystem {
         modules = [
+          {
+            nixpkgs = {
+              hostPlatform = "aarch64-darwin";
+              overlays = [
+                emacs-packages.overlays.package
+              ];
+            };
+          }
           ./configuration.nix
           home-manager.darwinModules.home-manager
           {
@@ -35,7 +43,7 @@
             home-manager.users.ferres = import ./home.nix {inherit home-version;};
           }
         ];
-        specialArgs = { inherit inputs self; };
+        specialArgs = { inherit self inputs; };
       };
 
       # Expose the package set, including overlays, for convenience.
