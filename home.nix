@@ -5,6 +5,9 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
+  imports = [
+    ./home/packages.nix
+  ];
   programs = {
     emacs = {
       enable = true;
@@ -39,34 +42,6 @@
     };
   };
   home.stateVersion = home-version;
-  home.packages =
-    let
-      programs = with pkgs; [
-      ];
-      utilities = with pkgs; [
-        fzf
-        silver-searcher
-      ];
-      fonts = with pkgs; [
-        inconsolata
-        ibm-plex
-      ];
-      formatters = with pkgs; [
-        nixpkgs-fmt
-        black
-        jsonfmt
-        yamlfmt
-      ];
-      lsp = with pkgs; [
-        languagetool
-        nixd
-        elixir-ls
-        python3Packages.python-lsp-server
-        ccls
-        csharp-ls
-      ];
-    in
-    fonts ++ formatters ++ lsp ++ utilities ++ programs;
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
