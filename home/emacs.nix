@@ -42,8 +42,5 @@ let
           recursive = true;
         };
       };
-      home.sessionVariables = {
-        EDITOR = "emacs";
-      };
     };
 }

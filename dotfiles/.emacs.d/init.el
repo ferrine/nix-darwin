@@ -1,21 +1,28 @@
 ;; Theme
-(add-to-list 'default-frame-alist '(font . "IBM Plex Mono" ))
-(set-face-attribute 'default t :font "IBM Plex Mono")
-(load-theme `modus-operandi)
-(setq display-line-numbers-type 'relative)
-(scroll-bar-mode -1)
-(display-time-mode t)
-(setq world-clock-list
-      '(("Europe/Moscow" "EU/Moscow")
-        ("Europe/Berlin" "EU/Berlin")
-        ("Europe/London" "EU/London")
-        ("Europe/Budapest" "EU/Budapest")
-        ("America/New_York" "US/New York")
-        ("Etc/UTC" "*UTC*")
-        ("Asia/Bangkok" "AS/Bangkok")))
+(use-package emacs
+  :custom
+  (user-mail-address "justferres@yandex.ru")
+  (user-full-name "Max Kochurov")
+  (setq display-line-numbers-type 'relative)
+  (scroll-bar-mode -1)
+  (display-time-mode t)
+  (setq world-clock-list
+        '(("Europe/Moscow" "EU/Moscow")
+          ("Europe/Berlin" "EU/Berlin")
+          ("Europe/London" "EU/London")
+          ("Europe/Budapest" "EU/Budapest")
+          ("America/New_York" "US/New York")
+          ("Etc/UTC" "*UTC*")
+          ("Asia/Bangkok" "AS/Bangkok")))
 
   (setq world-clock-time-format "%a, %d %b %I:%M %p %Z")
+  (setq-default indent-tabs-mode nil)
+  (trash-directory "~/.Trash")
 
+  :config
+  (add-to-list 'default-frame-alist '(font . "IBM Plex Mono" ))
+  (set-face-attribute 'default t :font "IBM Plex Mono")
+  (load-theme `modus-operandi))
 ;; Navigation
 
 (use-package winner
@@ -26,7 +33,7 @@
                            "*Buffer List*" "*info*" "*Compile-Log*")))
 
 ;; Developement
-(setq-default indent-tabs-mode nil)
+
 
 ;; Tramp
 (use-package tramp
