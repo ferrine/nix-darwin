@@ -18,21 +18,6 @@
   # release notes.
   home.stateVersion = home-version; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
-    cmake
-    nixd
-    elixir-ls
-    clang-tools
-    nixpkgs-fmt
-    cmake-format
-    cntr
-    gpustat
-    silver-searcher
-    fzf
-  ];
-
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
