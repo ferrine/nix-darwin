@@ -7,24 +7,24 @@ let
   {
     options = {
       stuff = {
-        utility.enable = lib.mkEnableOption {default = true;};
-        fonts.enable = lib.mkEnableOption {default = true;};
-        formatters.enable = lib.mkEnableOption {default = true;};
-        lsp.enable = lib.mkEnableOption {default = true;};
+        utility.enable = lib.mkEnableOption "utility";
+        fonts.enable = lib.mkEnableOption "fonts";
+        formatters.enable = lib.mkEnableOption "formatters";
+        lsp.enable = lib.mkEnableOption "lsp";
       };
     };
     config = {
       home.packages =
         let
           utility = (with pkgs; [
-            zsh
+            tmux
             git
             rsync
             cmake
             fzf
             silver-searcher
             clang-tools
-          ]) ++ (lib.optionals isLinux (with pkgs;[cntr]));
+          ]) ++ (lib.optionals isLinux (with pkgs; [cntr]));
           fonts = with pkgs; [
             inconsolata
             ibm-plex

@@ -1,11 +1,25 @@
 ;; Theme
 (use-package emacs
+  :config
+  (add-to-list 'default-frame-alist '(font . "IBM Plex Mono" ))
+  (set-face-attribute 'default t :font "IBM Plex Mono")
+  (load-theme `modus-operandi)
+
   :custom
   (user-mail-address "justferres@yandex.ru")
   (user-full-name "Max Kochurov")
   (setq display-line-numbers-type 'relative)
+  (setq-default indent-tabs-mode nil)
+  (setq-default trash-directory "~/.Trash")
+
+  :init
   (scroll-bar-mode -1)
-  (display-time-mode t)
+  (display-time-mode t))
+
+;; Clock
+
+(use-package time
+  :config
   (setq world-clock-list
         '(("Europe/Moscow" "EU/Moscow")
           ("Europe/Berlin" "EU/Berlin")
@@ -15,15 +29,7 @@
           ("Etc/UTC" "*UTC*")
           ("Asia/Bangkok" "AS/Bangkok")))
 
-  (setq world-clock-time-format "%a, %d %b %I:%M %p %Z")
-  (setq-default indent-tabs-mode nil)
-  (trash-directory "~/.Trash")
-
-  :config
-  (add-to-list 'default-frame-alist '(font . "IBM Plex Mono" ))
-  (set-face-attribute 'default t :font "IBM Plex Mono")
-  (load-theme `modus-operandi))
-;; Navigation
+  (setq world-clock-time-format "%a, %d %b %I:%M %p %Z"))
 
 (use-package winner
   :hook after-init

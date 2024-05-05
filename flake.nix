@@ -17,8 +17,12 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs@{ self, home-manager, darwin, emacs-packages, nixpkgs }:
+  outputs = inputs@{ self, home-manager, darwin, emacs-packages, nixpkgs, nixvim}:
     let
       home-version = "24.05";
     in
@@ -43,6 +47,7 @@
               useUserPackages = true;
               users.ferres = import ./laptop.nix {inherit home-version;};
               extraSpecialArgs = {
+                inherit inputs;
                 dot = path: "${./dotfiles}/${path}";
               };
             };
@@ -61,7 +66,10 @@
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [ (import ./dev.nix {inherit home-version; user = "ferres";})];
+        modules = [
+          nixvim.homeManagerModules.nixvim
+          (import ./dev.nix {inherit home-version; user = "ferres";})
+        ];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix

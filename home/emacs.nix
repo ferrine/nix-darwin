@@ -36,6 +36,7 @@ let
               ]);
         };
       };
+      home.packages = with pkgs; [ibm-plex];
       home.file = {
         ".emacs.d" = {
           source = (dot ".emacs.d");
