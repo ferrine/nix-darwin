@@ -106,7 +106,9 @@
         (mode . rust-mode)
         (mode . cargo-mode)
         (name . "\\*Cargo")
-        (name . "^\\*rls\\(::stderr\\)?\\*")
+        (name . "^\\*rls\\(::stderr\\)?\\*")))
+      ("Eglot"
+       (or
         (name . "eglot")))
       ("Nix"
        (mode . nix-mode))
