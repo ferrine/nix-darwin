@@ -40,7 +40,7 @@ in
       ];
       linux = with pkgs; [
         cntr
-        gpustat
+        python3Packages.gpustat
       ];
     in
     lib.flatten [
