@@ -21,68 +21,41 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
-  outputs = inputs@{ self, home-manager, darwin, nixpkgs, ...}:
+  outputs = inputs@{ self, flake-parts, home-manager, darwin, nixpkgs, ... }:
     let
       extraSpecialArgs = {
         inherit inputs;
-        dot = path: "${./dotfiles}/${path}";
       };
-      home-version = "24.05";
     in
-    {
-      # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#air
-      darwinConfigurations.air = darwin.lib.darwinSystem {
-        modules = [
-          {
-            nixpkgs = {
-              hostPlatform = "aarch64-darwin";
-            };
-          }
-          ./configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.ferres = {...} : {
-		home.stateVersion = home-version;
-		imports = [
-		  ./home
-		  ./laptop.nix
-		];
-	      };
-              inherit extraSpecialArgs;
-            };
-          }
-        ];
-        specialArgs = {
-          # to set revision
-          inherit self inputs;
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      imports = [
+	./nix
+      ];
+      flake = {
+	utils.dot = path: "${./dotfiles}/${path}";
+        homeConfigurations.dev = home-manager.lib.homeManagerConfiguration {
+
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [
+            self.homeModules.default
+            ./dev.nix
+            rec {
+              home.stateVersion = "24.05";
+              home.username = "ferres";
+              home.homeDirectory = "/home/${home.username}";
+            }
+          ];
+
+          # Optionally use extraSpecialArgs
+          # to pass through arguments to home.nix
+          inherit extraSpecialArgs;
         };
-
-      };
-
-      homeConfigurations.dev = home-manager.lib.homeManagerConfiguration {
-
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-	  ./home
-          ./dev.nix
-	  rec {
-	    home.stateVersion = home-version;
-	    home.username = "ferres";
-	    home.homeDirectory = "/home/${home.username}";
-	  }
-        ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-        inherit extraSpecialArgs;
       };
     };
 }
