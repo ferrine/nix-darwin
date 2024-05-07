@@ -5,9 +5,6 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  imports = [
-    ./home
-  ];
   stuff = {
     utility.enable = true;
     fonts.enable = true;

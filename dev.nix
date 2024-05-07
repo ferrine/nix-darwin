@@ -10,4 +10,3 @@
     zsh.enable = true;
   };
 }
-
