@@ -16,5 +16,8 @@ let
       home.sessionVariables = {
 	EDITOR = lib.mkDefault "nvim";
       };
+      home.shellAliases = {
+	vim = lib.mkDefault "nvim";
+      };
     };
   }
