@@ -5,15 +5,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  stuff = {
-    utility.enable = true;
-    fonts.enable = true;
-    formatters.enable = true;
-    lsp.enable = true;
-    nixvim.enable = true;
-    emacs.enable = true;
-    zsh.enable = true;
-  };
+  stuff.profiles.desktop.enable = true;
   home.sessionVariables = {
     EDITOR = "emacs";
   };

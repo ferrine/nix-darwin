@@ -22,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, home-manager, darwin, emacs-packages, nixpkgs, nixvim }:
+  outputs = inputs@{ self, home-manager, darwin, nixpkgs, ...}:
     let
       extraSpecialArgs = {
         inherit inputs;
