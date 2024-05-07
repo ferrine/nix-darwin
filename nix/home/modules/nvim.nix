@@ -1,23 +1,23 @@
-{lib, config, inputs, ... }:
+{ lib, config, inputs, ... }:
 let
   cfg = config.stuff.nixvim;
-  in
-  {
-    imports = [
-      inputs.nixvim.homeManagerModules.nixvim
-    ];
-    options = {
-      stuff.nixvim.enable = lib.mkEnableOption "nixvim configuration";
+in
+{
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+  ];
+  options = {
+    stuff.nixvim.enable = lib.mkEnableOption "nixvim configuration";
+  };
+  config = lib.mkIf cfg.enable {
+    programs.nixvim = {
+      enable = lib.mkDefault true;
     };
-    config = lib.mkIf cfg.enable {
-      programs.nixvim = {
-	enable = lib.mkDefault true;
-      };
-      home.sessionVariables = {
-	EDITOR = lib.mkDefault "nvim";
-      };
-      home.shellAliases = {
-	vim = lib.mkDefault "nvim";
-      };
+    home.sessionVariables = {
+      EDITOR = lib.mkDefault "nvim";
     };
-  }
+    home.shellAliases = {
+      vim = lib.mkDefault "nvim";
+    };
+  };
+}

@@ -32,10 +32,10 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-darwin" ];
       imports = [
-	./nix
+        ./nix
       ];
       flake = {
-	utils.dot = path: "${./dotfiles}/${path}";
+        utils.dot = path: "${./dotfiles}/${path}";
         homeConfigurations.dev = home-manager.lib.homeManagerConfiguration {
 
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
