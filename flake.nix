@@ -22,8 +22,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, home-manager, darwin, emacs-packages, nixpkgs, nixvim}:
+  outputs = inputs@{ self, home-manager, darwin, emacs-packages, nixpkgs, nixvim }:
     let
+      extraSpecialArgs = {
+        inherit inputs;
+        dot = path: "${./dotfiles}/${path}";
+      };
       home-version = "24.05";
     in
     {
@@ -34,9 +38,6 @@
           {
             nixpkgs = {
               hostPlatform = "aarch64-darwin";
-              overlays = [
-                emacs-packages.overlays.package
-              ];
             };
           }
           ./configuration.nix
@@ -45,11 +46,14 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.ferres = import ./laptop.nix {inherit home-version;};
-              extraSpecialArgs = {
-                inherit inputs;
-                dot = path: "${./dotfiles}/${path}";
-              };
+              users.ferres = {...} : {
+		home.stateVersion = home-version;
+		imports = [
+		  ./home
+		  ./laptop.nix
+		];
+	      };
+              inherit extraSpecialArgs;
             };
           }
         ];
@@ -67,15 +71,18 @@
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [
-          nixvim.homeManagerModules.nixvim
-          (import ./dev.nix {inherit home-version; user = "ferres";})
+	  ./home
+          ./dev.nix
+	  rec {
+	    home.stateVersion = home-version;
+	    home.username = "ferres";
+	    home.homeDirectory = "/home/${home.username}";
+	  }
         ];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = {
-          dot = path: "${./dotfiles}/${path}";
-        };
+        inherit extraSpecialArgs;
       };
     };
 }
