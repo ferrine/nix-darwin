@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{ self, inputs, pkgs, ... }: {
   imports = [ ];
   # https://mynixos.com/nix-darwin/options
   # List packages installed in system profile. To search by name, run:
@@ -20,8 +20,11 @@
   # nix.package = pkgs.nix;
 
   # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix = {
+    package = pkgs.nixVersions.latest;
+    settings.experimental-features = "nix-command flakes";
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  };
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina
   # programs.fish.enable = true;

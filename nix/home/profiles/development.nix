@@ -6,6 +6,7 @@ in
   config = lib.mkIf cfg.enable {
     stuff.profiles.essentials.enable = lib.mkDefault true;
     home.packages = with pkgs; [
+      nix-init
       nixpkgs-fmt
       black
       jsonfmt

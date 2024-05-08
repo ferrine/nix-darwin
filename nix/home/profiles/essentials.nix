@@ -6,6 +6,7 @@ in
 {
   options.stuff.profiles.essentials.enable = lib.mkEnableOption "Essential Tools";
   config = lib.mkIf cfg.enable {
+    stuff.zsh.enable = true;
     home.packages = (with pkgs; [
       tmux
       git
