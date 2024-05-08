@@ -36,26 +36,6 @@
       ];
       flake = {
         utils.dot = path: "${./dotfiles}/${path}";
-        homeConfigurations.dev = home-manager.lib.homeManagerConfiguration {
-
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [
-            self.homeModules.default
-            ./dev.nix
-            rec {
-              home.stateVersion = "24.05";
-              home.username = "ferres";
-              home.homeDirectory = "/home/${home.username}";
-            }
-          ];
-
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-          inherit extraSpecialArgs;
-        };
       };
     };
 }

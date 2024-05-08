@@ -1,7 +1,7 @@
-{ ... } @ flake:
 {
   imports = [
     ./home
     ./darwin
+    ./remote
   ];
 }
