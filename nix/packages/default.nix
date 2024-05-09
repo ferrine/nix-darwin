@@ -6,7 +6,7 @@
         self:
         {
           localPython3Packages = self.callPackage ./python {
-	    buildTimeSDK = pkgs.darwin.apple_sdk;
+	    buildTimeAppleSDK = pkgs.darwin.apple_sdk;
 	  };
         }
       );
