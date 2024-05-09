@@ -1,3 +1,4 @@
+{ self, pkgs, ... }:
 let
   user = "ferres";
 in
@@ -8,6 +9,9 @@ in
   };
   home-manager.users.${user} = {
     home.stateVersion = "24.05";
+    home.packages = [
+      self.legacyPackages.${pkgs.system}.localPython3Packages.ledger-agent
+    ];
     imports = [
       {
         stuff.profiles.desktop.enable = true;
