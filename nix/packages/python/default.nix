@@ -1,4 +1,4 @@
-{ pkgs, lib, newScope, buildTimeAppleSDK, python3Packages }:
+{ pkgs, lib, stdenv, buildTimeAppleSDK, python3Packages }:
 let
   apple_libffi = pkgs.stdenv.mkDerivation {
     name = "apple-libffi";
@@ -54,4 +54,9 @@ lib.makeScope python3Packages.newScope (self:
     inherit (buildTimeAppleSDK) xcodebuild;
     inherit commonPreBuildDarwinMinVersion;
   };
+  bleak = self.callPackage ./bleak { };
+  ledgerblue = python3Packages.ledgerblue.overrideAttrs (attrs: {
+    buildInputs = attrs.buildInputs ++ [ self.bleak ];
+  });
+  ledger-agent = python3Packages.ledger-agent.override { inherit (self) ledgerblue; };
 })
