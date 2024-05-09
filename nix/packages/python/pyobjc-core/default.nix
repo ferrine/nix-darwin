@@ -1,5 +1,6 @@
 # inpired by https://github.com/input-output-hk/lace/blob/0fd166666cc454171811b307050d0815452bea82/nix/lace-blockchain-services/internal/any-darwin.nix#L339
-{ buildPythonPackage
+{ lib
+, buildPythonPackage
 , fetchPypi
 , xcodebuild
 , cctools
@@ -57,4 +58,9 @@ buildPythonPackage rec {
   checkPhase = ''
     python3 setup.py test  
   '';
+  meta = {
+    description = "The Python <-> Objective-C Bridge with bindings for macOS frameworks";
+    homepage = "https://pypi.org/project/pyobjc-core/";
+    platforms = lib.platforms.darwin;
+  };
 }
