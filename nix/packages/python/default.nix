@@ -36,8 +36,14 @@ lib.makeScope python3Packages.newScope (self:
     inherit (buildTimeAppleSDK.libs) simd;
     inherit (buildTimeAppleSDK.frameworks) Foundation GameplayKit MetalPerformanceShaders;
   };
-  pyobjc-framework-Cocoa = self.callPackage ./pyobjc-framework-Cocoa {
+  pyobjc-framework-cocoa = self.callPackage ./pyobjc-framework-Cocoa {
     inherit (buildTimeAppleSDK.frameworks) Foundation AppKit;
+    inherit (pkgs.darwin) cctools;
+    inherit (buildTimeAppleSDK) xcodebuild;
+    inherit commonPreBuildDarwinMinVersion;
+  };
+  pyobjc-framework-core-bluetooth = self.callPackage ./pyobjc-framework-CoreBluetooth {
+    inherit (buildTimeAppleSDK.frameworks) CoreBluetooth;
     inherit (pkgs.darwin) cctools;
     inherit (buildTimeAppleSDK) xcodebuild;
     inherit commonPreBuildDarwinMinVersion;

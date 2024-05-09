@@ -37,11 +37,13 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pyobjc-core
   ];
+
   prePatch = ''
     mv PyObjCTest/test_nsgraphics.py PyObjCTest/disable_test_nsgraphics.py
     substituteInPlace PyObjCTest/test_nssavepanel.py \
       --replace test_issue282 disable_test_issue282
   '';
+
   preBuild = commonPreBuildDarwinMinVersion;
 
   hardeningDisable = [ "strictoverflow" ];
