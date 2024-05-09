@@ -48,4 +48,10 @@ lib.makeScope python3Packages.newScope (self:
     inherit (buildTimeAppleSDK) xcodebuild;
     inherit commonPreBuildDarwinMinVersion;
   };
+  pyobjc-framework-libdispatch = self.callPackage ./pyobjc-framework-libdispatch {
+    inherit (buildTimeAppleSDK.frameworks) Foundation;
+    inherit (pkgs.darwin) cctools;
+    inherit (buildTimeAppleSDK) xcodebuild;
+    inherit commonPreBuildDarwinMinVersion;
+  };
 })
