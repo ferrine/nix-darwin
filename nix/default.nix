@@ -3,5 +3,6 @@
     ./home
     ./darwin
     ./remote
+    ./packages
   ];
 }
