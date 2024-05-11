@@ -11,6 +11,10 @@
       self.homeModules.default
       rec {
         stuff.profiles.development.enable = true;
+        stuff.home-update = {
+          enable = true;
+          attr = "c1-s1";
+        };
         programs.home-manager.enable = true;
         home.stateVersion = "24.05";
         home.username = "ferres";
