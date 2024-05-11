@@ -5,7 +5,7 @@ in
   options.stuff.profiles.development.enable = lib.mkEnableOption "Development Profile";
   config = lib.mkIf cfg.enable {
     stuff.profiles.essentials.enable = lib.mkDefault true;
-    home.packages = with pkgs; [
+    home.packages = (with pkgs; [
       nix-init
       nixpkgs-fmt
       black
@@ -17,6 +17,7 @@ in
       python3Packages.python-lsp-server
       ccls
       csharp-ls
-    ];
+      clang-tools
+    ]) ++ (lib.optionals pkgs.stdenv.isLinux (with pkgs; [ cntr ]));
   };
 }

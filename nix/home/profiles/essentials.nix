@@ -6,6 +6,7 @@ in
 {
   options.stuff.profiles.essentials.enable = lib.mkEnableOption "Essential Tools";
   config = lib.mkIf cfg.enable {
+    stuff.nixvim.enable = true;
     stuff.zsh.enable = true;
     home.packages = (with pkgs; [
       tmux
@@ -14,7 +15,6 @@ in
       cmake
       fzf
       silver-searcher
-      clang-tools
-    ]) ++ (lib.optionals isLinux (with pkgs; [ cntr ]));
+    ]);
   };
 }
