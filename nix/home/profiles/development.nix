@@ -5,6 +5,7 @@ in
   options.stuff.profiles.development.enable = lib.mkEnableOption "Development Profile";
   config = lib.mkIf cfg.enable {
     stuff.profiles.essentials.enable = lib.mkDefault true;
+    programs.direnv.enable = true;
     home.packages = (with pkgs; [
       nix-init
       nixpkgs-fmt
