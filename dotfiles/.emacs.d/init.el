@@ -44,7 +44,10 @@
 ;; Tramp
 (use-package tramp
   :config
-  (add-to-list 'tramp-remote-path "~/.nix-profile/bin/"))
+  (setq tramp-default-method "ssh")
+  (custom-set-variables  '(tramp-remote-path
+                           (quote
+                            (tramp-own-remote-path)))))
 
 ;; Treesitter remapping
 
