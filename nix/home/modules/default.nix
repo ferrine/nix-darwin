@@ -4,5 +4,6 @@
     ./nvim.nix
     ./zsh.nix
     ./home-update.nix
+    ./git
   ];
 }

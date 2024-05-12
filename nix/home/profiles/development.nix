@@ -19,6 +19,7 @@ in
       ccls
       csharp-ls
       clang-tools
+      cmake
     ]) ++ (lib.optionals pkgs.stdenv.isLinux (with pkgs; [ cntr ]));
   };
 }

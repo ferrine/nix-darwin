@@ -28,5 +28,5 @@ in
         home-manager switch --refresh --flake ${url}#${attr}
       '';
     in
-    lib.mkIf cfg.enable [home-update];
+    lib.mkIf cfg.enable [ home-update ];
 }

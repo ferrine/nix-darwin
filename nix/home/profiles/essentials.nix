@@ -8,11 +8,10 @@ in
   config = lib.mkIf cfg.enable {
     stuff.nixvim.enable = true;
     stuff.zsh.enable = true;
+    stuff.git.enable = true;
     home.packages = (with pkgs; [
       tmux
-      git
       rsync
-      cmake
       fzf
       silver-searcher
     ]);
