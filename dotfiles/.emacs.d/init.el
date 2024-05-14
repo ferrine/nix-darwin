@@ -186,7 +186,7 @@
    'eglot-server-programs
    '(elixir-ts-mode
      ;; TODO remove elixir package from runtime shell
-     . ("nix-shell" "-p" "elixir-ls" "elixir" "--run" "elixir-ls"))))
+     . ("nix-shell" "-p" "elixir-ls" "elixir" "--run" "elixir-ls")))
   (setq-default
    eglot-workspace-configuration
    '(:nixd
