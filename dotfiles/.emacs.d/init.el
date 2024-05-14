@@ -4,6 +4,7 @@
   (add-to-list 'default-frame-alist '(font . "IBM Plex Mono" ))
   (set-face-attribute 'default t :font "IBM Plex Mono")
   (load-theme `modus-operandi)
+  (setq enable-remote-dir-locals t)
 
   :custom
   (user-mail-address "justferres@yandex.ru")
@@ -180,8 +181,12 @@
   (add-to-list
    'eglot-server-programs
    '(nix-ts-mode
-     . ("nixd")))
-  (add-to-list 'eglot-server-programs '(elixir-ts-mode . ("elixir-ls")))
+     . ("nix-shell" "-p" "nixd" "--run" "nixd")))
+  (add-to-list
+   'eglot-server-programs
+   '(elixir-ts-mode
+     ;; TODO remove elixir package from runtime shell
+     . ("nix-shell" "-p" "elixir-ls" "elixir" "--run" "elixir-ls"))))
   (setq-default
    eglot-workspace-configuration
    '(:nixd

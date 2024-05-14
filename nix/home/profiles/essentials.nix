@@ -14,6 +14,7 @@ in
       rsync
       fzf
       silver-searcher
+      htop
     ]);
   };
 }
