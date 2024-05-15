@@ -10,7 +10,10 @@ in
     stuff.zsh.enable = true;
     stuff.git.enable = true;
     home.packages = (with pkgs; [
-      awk
+      findutils
+      coreutils-full
+      ripgrep
+      gawk
       tmux
       rsync
       fzf

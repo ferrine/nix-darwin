@@ -7,7 +7,7 @@ in
     name = user;
     home = "/Users/${user}";
   };
-  home-manager.users.${user} = {
+  home-manager.users.${user} = { lib, ... }: {
     home.stateVersion = "24.05";
     home.packages = [
       self.legacyPackages.${pkgs.system}.localPython3Packages.ledger-agent
@@ -15,12 +15,17 @@ in
     home.activation.fix-lsregister =
       let
         lsregister = "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister";
+        xargs = "${pkgs.findutils}/bin/xargs";
+        find = "${pkgs.findutils}/bin/find";
+        grep = "${pkgs.gnugrep}/bin/grep";
+        awk = "${pkgs.gawk}/bin/awk";
+        realpath = "${pkgs.coreutils}/bin/realpath";
       in
-      ''
+      lib.hm.dag.entryAfter [ "linkGeneration" ] ''
         # unregister all from the previous generation
-        ${lsregister} -dump | /usr/bin/grep /nix/store | /usr/bin/awk '{ print $2 }' | /usr/bin/xargs ${lsregister} -f -u
+        ${lsregister} -dump | ${grep} /nix/store | ${awk} '{ print $2 }' | ${xargs} ${lsregister} -f -u
         # refresh with new generation
-        /usr/bin/find $(realpath $HOME/Applications/Home\ Manager\ Apps) -name '*.app' | /usr/bin/xargs ${lsregister} -f
+        ${find} $(${realpath} $HOME/Applications/Home\ Manager\ Apps) -name '*.app' | ${xargs} ${lsregister} -f
       '';
     imports = [
       {
