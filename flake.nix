@@ -36,6 +36,12 @@
       ];
       flake = {
         utils.dot = path: "${./dotfiles}/${path}";
+        templates.default = {
+          path = ./templates/simple;
+          description = ''
+            Simple template
+          '';
+        };
       };
     };
 }

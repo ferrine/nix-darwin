@@ -1,0 +1,7 @@
+{ ... } @flake:
+{
+  perSystem = { ... } @localFlake:
+    {
+      legacyPackages = { };
+    };
+}
