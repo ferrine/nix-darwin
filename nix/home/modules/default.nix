@@ -5,5 +5,6 @@
     ./zsh.nix
     ./home-update.nix
     ./git
+    ./fix-lsregister-macos.nix
   ];
 }
