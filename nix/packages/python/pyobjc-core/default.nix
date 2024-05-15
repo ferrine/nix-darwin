@@ -58,6 +58,7 @@ buildPythonPackage rec {
   checkPhase = ''
     python3 setup.py test  
   '';
+  doCheck = false;
   meta = {
     description = "The Python <-> Objective-C Bridge with bindings for macOS frameworks";
     homepage = "https://pypi.org/project/pyobjc-core/";

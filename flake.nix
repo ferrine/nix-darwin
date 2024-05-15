@@ -23,12 +23,7 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
-  outputs = inputs@{ self, flake-parts, home-manager, darwin, nixpkgs, ... }:
-    let
-      extraSpecialArgs = {
-        inherit inputs;
-      };
-    in
+  outputs = inputs@{ flake-parts,... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-darwin" ];
       imports = [
