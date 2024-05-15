@@ -37,6 +37,7 @@ in
             languagetool
             s
             ag
+	    markdown-mode
           ]
         ) ++ (with pkgs; [
           jdk17_headless

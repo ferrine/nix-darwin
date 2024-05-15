@@ -217,3 +217,5 @@
 ;; Vterm
 (use-package vterm
   :defer t)
+
+(use-package markdown-mode)

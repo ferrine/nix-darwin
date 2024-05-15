@@ -20,6 +20,7 @@ in
       csharp-ls
       clang-tools
       cmake
+      multimarkdown
     ]) ++ (lib.optionals pkgs.stdenv.isLinux (with pkgs; [ cntr ]));
   };
 }
