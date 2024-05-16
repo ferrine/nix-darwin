@@ -203,7 +203,8 @@
   :bind (:map projectile-mode-map
               ("M-p" . projectile-command-map))
   :config
-  (setq projectile-completion-system 'helm))
+  (setq projectile-completion-system 'helm)
+  (setq projectile-switch-project-action #'projectile-dired))
 
 ;; Writing
 
