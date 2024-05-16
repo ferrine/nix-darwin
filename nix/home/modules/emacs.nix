@@ -38,6 +38,7 @@ in
             s
             ag
             markdown-mode
+            ethan-wspace
           ]
         ) ++ (with pkgs; [
           jdk17_headless

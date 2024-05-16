@@ -4,16 +4,21 @@
   (add-to-list 'default-frame-alist '(font . "IBM Plex Mono" ))
   (set-face-attribute 'default t :font "IBM Plex Mono")
   (load-theme `modus-operandi)
-  (setq enable-remote-dir-locals t)
 
   :custom
+  (enable-remote-dir-locals t)
   (user-mail-address "justferres@yandex.ru")
   (user-full-name "Max Kochurov")
-  (setq display-line-numbers-type 'relative)
-  (setq-default indent-tabs-mode nil)
-  (setq-default trash-directory "~/.Trash")
-  (auto-save-list-file-prefix (user-data "auto-save-list/.saves-"))
+  (display-line-numbers-type 'relative)
+  (indent-tabs-mode nil)
+  (trash-directory "~/.Trash")
+  (auto-save-list-file-prefix
+    (user-data "auto-save-list/.saves-"))
   (auto-save-file-name-transforms '(("\\`/[^/]*:.*" "/tmp" t)))
+  (lock-file-name-transforms '((".*" "\\&~" t)))
+  (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
+  (delete-old-versions t)
+
 
 
   :init
@@ -23,8 +28,8 @@
 ;; Clock
 
 (use-package time
-  :config
-  (setq world-clock-list
+  :custom
+  (world-clock-list
         '(("Europe/Moscow" "EU/Moscow")
           ("Europe/Berlin" "EU/Berlin")
           ("Europe/London" "EU/London")
@@ -33,7 +38,7 @@
           ("Etc/UTC" "*UTC*")
           ("Asia/Bangkok" "AS/Bangkok")))
 
-  (setq world-clock-time-format "%a, %d %b %I:%M %p %Z"))
+  (world-clock-time-format "%a, %d %b %I:%M %p %Z"))
 
 (use-package winner
   :hook after-init
@@ -202,7 +207,7 @@
   (projectile-mode t)
   :bind ((:map projectile-mode-map
                ("M-p" . projectile-command-map))
-	 ("M-p v" . 'magit))
+         ("M-p v" . 'magit))
   :config
   (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action #'projectile-dired))
@@ -233,3 +238,8 @@
             (lambda ()
               (setq imenu-generic-expression
                     '((nil "^\\s-*(use-package\\s-+\\(\\_<.+?\\_>\\)" 1))))))
+
+(use-package ethan-wspace
+  :config
+  (setq mode-require-final-newline nil)
+  (global-ethan-wspace-mode t))
