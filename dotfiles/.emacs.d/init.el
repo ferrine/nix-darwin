@@ -5,6 +5,11 @@
   (set-face-attribute 'default t :font "IBM Plex Mono")
   (load-theme `modus-operandi)
   (setq enable-remote-dir-locals t)
+  (setq auto-save-file-name-transforms
+        `((".*" ,(concat user-emacs-directory "auto-save/") t)))
+  (setq backup-directory-alist
+	`(("." . ,(expand-file-name
+                   (concat user-emacs-directory "backups")))))
 
   :custom
   (user-mail-address "justferres@yandex.ru")
