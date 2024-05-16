@@ -1,6 +1,6 @@
 { ... } @flake:
 {
-  perSystem = { pkgs, lib, stdenv, ... }:
+  perSystem = { pkgs, lib, ... }:
     {
       legacyPackages = lib.makeScope pkgs.newScope (
         self:
