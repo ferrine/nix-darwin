@@ -3,6 +3,6 @@
     ./home
     ./darwin
     ./remote
-    ./packages
+    ./packages/flake-module.nix
   ];
 }
