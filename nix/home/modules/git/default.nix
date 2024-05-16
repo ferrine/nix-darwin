@@ -9,6 +9,12 @@ in
       enable = lib.mkDefault true;
       userEmail = lib.mkDefault "justferres@yandex.ru";
       userName = lib.mkDefault "ferres";
+      ignores = [
+	"*~"
+	"\\#*\\#"
+	"*.swp"
+	".\\#*"
+      ];
     };
   };
 }
