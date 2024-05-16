@@ -8,18 +8,15 @@ in
     home = "/Users/${user}";
   };
   home-manager.users.${user} = {
-    home.stateVersion = "24.05";
-    home.packages = [
-      self.legacyPackages.${pkgs.system}.localPython3Packages.ledger-agent
-    ];
-
-    imports = [
-      {
-        stuff.profiles.desktop.enable = true;
-        home.sessionVariables = {
-          EDITOR = "emacs";
-        };
-      }
-    ];
+    stuff.profiles.desktop.enable = true;
+    home = {
+      stateVersion = "24.05";
+      packages = [
+        self.legacyPackages.${pkgs.system}.localPython3Packages.ledger-agent
+      ];
+      sessionVariables = {
+        EDITOR = "emacs";
+      };
+    };
   };
 }
