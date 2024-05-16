@@ -1,6 +1,5 @@
 { lib, config, pkgs, ... }:
 let
-  inherit (pkgs.stdenv) isLinux;
   cfg = config.stuff.profiles.essentials;
 in
 {
