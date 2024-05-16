@@ -7,7 +7,7 @@
     {
       devShells.default = pkgs.mkShell rec {
         name = "default shell";
-        packages = with pkgs; [ nixpgks-fmt ];
+        packages = with pkgs; [ nixpkgs-fmt ];
       };
     };
 }
