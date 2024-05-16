@@ -200,8 +200,9 @@
 (use-package projectile
   :init
   (projectile-mode t)
-  :bind (:map projectile-mode-map
-              ("M-p" . projectile-command-map))
+  :bind ((:map projectile-mode-map
+               ("M-p" . projectile-command-map))
+	 ("M-p v" . 'magit))
   :config
   (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action #'projectile-dired))
