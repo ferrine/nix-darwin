@@ -7,6 +7,9 @@ in
     stuff.profiles.essentials.enable = lib.mkDefault true;
     programs.direnv.enable = true;
     home.packages = (with pkgs; [
+      python3
+      python310
+      python39
       nix-init
       nixpkgs-fmt
       black
