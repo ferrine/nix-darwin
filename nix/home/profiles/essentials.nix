@@ -9,6 +9,7 @@ in
     stuff.zsh.enable = true;
     stuff.git.enable = true;
     home.packages = (with pkgs; [
+      tree
       findutils
       coreutils-full
       ripgrep

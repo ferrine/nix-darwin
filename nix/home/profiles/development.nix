@@ -7,9 +7,7 @@ in
     stuff.profiles.essentials.enable = lib.mkDefault true;
     programs.direnv.enable = true;
     home.packages = (with pkgs; [
-      (python3.withPackages (py: with py;[
-        virtualenv
-      ]))
+      virtualenv
       poetry
       nix-init
       nixpkgs-fmt
