@@ -242,3 +242,6 @@
   :config
   (setq mode-require-final-newline nil)
   (global-ethan-wspace-mode t))
+
+(use-package agenix
+  )

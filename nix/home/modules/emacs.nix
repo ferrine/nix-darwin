@@ -39,6 +39,7 @@ in
             ag
             markdown-mode
             ethan-wspace
+            agenix
           ]
         ) ++ (with pkgs; [
           jdk17_headless
@@ -46,7 +47,10 @@ in
         ]);
       };
     };
-    home.packages = with pkgs; [ ibm-plex ];
+    home.packages = with pkgs; [
+      age
+      ibm-plex
+    ];
     home.file = {
       ".emacs.d" = {
         source = (dot ".emacs.d");
