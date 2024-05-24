@@ -15,6 +15,9 @@ in
 	"*.swp"
 	".\\#*"
       ];
+      extraConfig = {
+        merge.conflictStyle = "diff3";
+      };
     };
   };
 }
