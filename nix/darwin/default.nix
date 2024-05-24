@@ -18,7 +18,6 @@
                 inherit inputs;
                 inherit (self.utils) dot;
               };
-              useGlobalPkgs = true;
               useUserPackages = true;
             };
           }
