@@ -208,6 +208,9 @@
                ("M-p" . projectile-command-map))
          ("M-p v" . 'magit))
   :config
+  (add-to-list 'projectile-other-file-alist '("ex" . ("html.heex" "html.leex")))
+  (add-to-list 'projectile-other-file-alist '("html.heex" . ("ex")))
+  (add-to-list 'projectile-other-file-alist '("html.leex" . ("ex")))
   (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action #'projectile-dired))
 
