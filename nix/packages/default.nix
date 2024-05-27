@@ -5,5 +5,6 @@ lib.makeScope pkgs.newScope (
     localPython3Packages = self.callPackage ./python {
       buildTimeAppleSDK = pkgs.darwin.apple_sdk;
     };
+    localPkgs = self.callPackage ./pkgs {};
   }
 )

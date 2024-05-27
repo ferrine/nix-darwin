@@ -11,8 +11,9 @@ in
     stuff.profiles.desktop.enable = true;
     home = {
       stateVersion = "24.05";
-      packages = [
-        self.legacyPackages.${pkgs.system}.localPython3Packages.ledger-agent
+      packages = with self.legacyPackages.${pkgs.system}; [
+        localPython3Packages.ledger-agent
+        localPkgs.netron
       ];
       sessionVariables = {
         EDITOR = "emacs";
