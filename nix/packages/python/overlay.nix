@@ -1,5 +1,7 @@
-{ pkgs, lib, stdenv, buildTimeAppleSDK, python3Packages }:
+self: super:
 let
+  inherit (super) lib pkgs;
+  buildTimeAppleSDK = pkgs.darwin.apple_sdk;
   apple_libffi = pkgs.stdenv.mkDerivation {
     name = "apple-libffi";
     dontUnpack = true;
@@ -26,8 +28,7 @@ let
       sed -r "s+/usr/bin/python+$(${lib.getExe pkgs.which} python)+g" -i "$file"
     done
   '';
-in
-lib.makeScope python3Packages.newScope (self:
+  in
 {
   pyobjc-core = self.callPackage ./pyobjc-core {
     inherit apple_libffi commonPreBuildDarwinMinVersion;
@@ -58,5 +59,5 @@ lib.makeScope python3Packages.newScope (self:
   ledgerblue = python3Packages.ledgerblue.overridePythonAttrs (attrs: {
     dependencies = attrs.dependencies ++ [ self.bleak ];
   });
-  ledger-agent = python3Packages.ledger-agent.override { inherit (self) ledgerblue; };
-})
+  ledger_agent = super.ledger_agent.override { inherit (self) ledgerblue; };
+}
