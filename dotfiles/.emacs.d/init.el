@@ -192,7 +192,7 @@
      . ("nix-shell" "-p" "nixd" "--run" "nixd")))
   (add-to-list
    'eglot-server-programs
-   '(elixir-ts-mode
+   '((elixir-ts-mode heex-ts-mode)
      ;; TODO remove elixir package from runtime shell
      . ("nix-shell" "-p" "elixir-ls" "elixir" "--run" "elixir-ls")))
   (setq-default
