@@ -7,6 +7,7 @@ in
     stuff.profiles.essentials.enable = lib.mkDefault true;
     programs.direnv.enable = true;
     home.packages = (with pkgs; [
+      git-bug
       age
       virtualenv
       poetry

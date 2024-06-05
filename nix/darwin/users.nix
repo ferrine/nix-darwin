@@ -16,7 +16,7 @@ in
         localPkgs.netron
       ];
       sessionVariables = {
-        EDITOR = "emacs";
+        EDITOR="emacsclient -c -n -a ''";
       };
     };
   };
