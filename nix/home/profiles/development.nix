@@ -6,6 +6,9 @@ in
   config = lib.mkIf cfg.enable {
     stuff.profiles.essentials.enable = lib.mkDefault true;
     programs.direnv.enable = true;
+    home.shellAliases = {
+      bug = "EDITOR=nvim git-bug";
+    };
     home.packages = (with pkgs; [
       git-bug
       age
