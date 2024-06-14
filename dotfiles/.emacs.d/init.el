@@ -14,7 +14,8 @@
   (trash-directory "~/.Trash")
   (auto-save-list-file-prefix
     (user-data "auto-save-list/.saves-"))
-  (lock-file-name-transforms '((".*" "\\&~" t)))
+  (lock-file-name-transforms
+      '(("\\`/.*/\\([^/]+\\)\\'" "/var/tmp/\\1" t)))
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
   (delete-old-versions t)
 

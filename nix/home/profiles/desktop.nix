@@ -12,5 +12,8 @@ in
       macos.enable = lib.mkDefault isDarwin;
       fonts.enable = lib.mkDefault true;
     };
+    home.packages = with pkgs; [
+      gephi
+    ];
   };
 }

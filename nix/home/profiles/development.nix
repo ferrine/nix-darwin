@@ -10,6 +10,7 @@ in
       bug = "EDITOR=nvim git-bug";
     };
     home.packages = (with pkgs; [
+      graphviz
       git-bug
       age
       virtualenv
