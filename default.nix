@@ -1,16 +1,18 @@
 { sources ? import ./nix/sources.nix }: # import the sources
 let
   pkgs = import sources.nixpkgs {
-    overlays = [
-      (import ./nix/packages/overlay.nix)
-    ];
     config = { allowUnfree = true; };
   };
-  darwin = import sources.darwin {
-    inherit (sources) nixpkgs;
-    inherit pkgs;
-  };
+  inherit (pkgs) lib;
 in
-{
-  inherit pkgs darwin;
-}
+lib.makeScope pkgs.newScope (self: {
+  inherit pkgs lib sources;
+  third-party = lib.packagesFromDirectoryRecursive {
+    inherit (self) callPackage;
+    directory = ./third_party;
+  };
+  repo = lib.packagesFromDirectoryRecursive {
+    inherit (self) callPackage;
+    directory = ./src;
+  };
+})
