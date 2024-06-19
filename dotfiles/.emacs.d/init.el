@@ -18,7 +18,7 @@
       '(("\\`/.*/\\([^/]+\\)\\'" "/var/tmp/\\1" t)))
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
   (delete-old-versions t)
-
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-mode))
 
 
   :init
