@@ -14,8 +14,6 @@
   (trash-directory "~/.Trash")
   (auto-save-list-file-prefix
     (user-data "auto-save-list/.saves-"))
-  (lock-file-name-transforms
-      '(("\\`/.*/\\([^/]+\\)\\'" "/var/tmp/\\1" t)))
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
   (delete-old-versions t)
   (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-mode))
@@ -231,6 +229,9 @@
 ;; Vterm
 (use-package vterm
   :defer t)
+
+(use-package magit
+  )
 
 (use-package markdown-mode)
 
