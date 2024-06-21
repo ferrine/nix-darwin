@@ -12,6 +12,10 @@
   (display-line-numbers-type 'relative)
   (indent-tabs-mode nil)
   (trash-directory "~/.Trash")
+  (lock-file-name-transforms
+      '(("\\`\\(.+\\)\\'" "\\1~")))
+  (tramp-lock-file-name-transforms
+      '(("\\`\\(.+\\)\\'" "\\1~")))
   (auto-save-list-file-prefix
     (user-data "auto-save-list/.saves-"))
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
