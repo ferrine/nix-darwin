@@ -14,8 +14,6 @@
   (trash-directory "~/.Trash")
   (lock-file-name-transforms
       '(("\\`\\(.+\\)\\'" "\\1~")))
-  (tramp-lock-file-name-transforms
-      '(("\\`\\(.+\\)\\'" "\\1~")))
   (auto-save-list-file-prefix
     (user-data "auto-save-list/.saves-"))
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
@@ -54,8 +52,12 @@
 
 ;; Tramp
 (use-package tramp
-  :config
-  (setq tramp-default-method "ssh")
+  :custom
+  (tramp-default-method "ssh")
+  (debug-ignored-errors
+        (cons 'remote-file-error debug-ignored-errors))
+  (tramp-lock-file-name-transforms
+      '(("\\`\\(.+\\)\\'" "\\1~")))
   (custom-set-variables  '(tramp-remote-path
                            (quote
                             (tramp-own-remote-path)))))
