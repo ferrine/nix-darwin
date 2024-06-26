@@ -40,6 +40,8 @@ in
             markdown-mode
             ethan-wspace
             agenix
+            yasnippet
+            yasnippet-snippets
           ]
         ) ++ (with pkgs; [
           jdk17_headless
