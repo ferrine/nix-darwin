@@ -1,0 +1,3 @@
+[submodule "nix/kit"]
+	path = nix/kit
+	url = https://code.tvl.fyi/depot.git:unsign:workspace=views/kit.git
