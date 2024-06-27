@@ -1,9 +1,10 @@
-{ universe, ... }:
+{ universe, nixpkgsConfig, localSystem, crossSystem, ... }:
 let
-  nixpkgs = universe.third_party.sources.nixpkgs;
+  nixpkgsSrc = universe.third_party.sources.nixpkgs;
 in
-import nixpkgs {
+import nixpkgsSrc {
   config = {
     allowUnfree = true;
-  };
+  } // nixpkgsConfig;
+  inherit localSystem crossSystem;
 }
