@@ -5,6 +5,11 @@ in
 import nixpkgsSrc {
   config = {
     allowUnfree = true;
+    # e.g. JAX marked broken
+    allowBroken = true;
   } // nixpkgsConfig;
   inherit localSystem crossSystem;
+  overlays = [
+    universe.third_party.overlays.python
+  ];
 }
