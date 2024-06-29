@@ -18,7 +18,7 @@
     (user-data "auto-save-list/.saves-"))
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
   (delete-old-versions t)
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-ts-mode))
 
 
   :init
