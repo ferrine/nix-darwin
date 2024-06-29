@@ -54,6 +54,11 @@
 (use-package tramp
   :custom
   (tramp-default-method "ssh")
+  (customize-set-variable
+   'tramp-ssh-controlmaster-options
+   (concat
+    "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
+    "-o ControlMaster=auto -o ControlPersist=yes"))
   (debug-ignored-errors
         (cons 'remote-file-error debug-ignored-errors))
   (tramp-lock-file-name-transforms
