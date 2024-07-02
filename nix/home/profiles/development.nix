@@ -9,11 +9,16 @@ in
     home.shellAliases = {
       bug = "EDITOR=nvim git-bug";
     };
+    programs.zsh.initExtra = ''
+      # TODO: micromamba deserves its own module for configuration
+      export MAMBA_ROOT_PREFIX=~/micromamba
+      eval "$(${pkgs.micromamba}/bin/micromamba shell hook --shell zsh)"
+    '';
     home.packages = (with pkgs; [
       graphviz
       git-bug
       age
-      virtualenv
+      micromamba
       poetry
       nix-init
       nixpkgs-fmt
