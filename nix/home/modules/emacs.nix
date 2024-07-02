@@ -42,6 +42,7 @@ in
             agenix
             yasnippet
             yasnippet-snippets
+            git-modes
           ]
         ) ++ (with pkgs; [
           jdk17_headless

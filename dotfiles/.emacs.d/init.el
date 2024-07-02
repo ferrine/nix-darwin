@@ -263,11 +263,12 @@
   )
 
 (use-package yasnippet
-  :diminish yas-minor-mode
-  :hook
-  (prog-mode . yas-minor-mode)
   :config
+  (yas-global-mode 1)
   (yas-reload-all))
 
 (use-package yasnippet-snippets
+  )
+
+(use-package git-modes
   )
