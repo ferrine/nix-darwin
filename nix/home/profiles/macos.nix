@@ -1,7 +1,10 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
+let
+  cfg = config.stuff.profiles.macos;
+in
 {
   options.stuff.profiles.macos.enable = lib.mkEnableOption "MacOS Configuration";
-  config = {
+  config = lib.mkIf cfg.enable {
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       raycast
