@@ -1,10 +1,7 @@
-{ lib
-, fetchurl
-, stdenv
-, nix-update-script
-, unzip
-}:
-
+{universe, pkgs, ...}:
+let
+  inherit (pkgs) lib fetchurl stdenv nix-update-script unzip;
+in
 stdenv.mkDerivation rec {
   pname = "netron";
   version = "7.6.9";
