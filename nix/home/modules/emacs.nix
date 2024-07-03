@@ -1,3 +1,4 @@
+
 { pkgs, config, lib, dot, inputs, ... }:
 let
   cfg = config.stuff.emacs;
@@ -33,7 +34,6 @@ in
             telega
             projectile
             helm
-            vterm
             languagetool
             s
             ag

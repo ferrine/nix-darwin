@@ -257,9 +257,9 @@
              languagetool-server-start
              languagetool-server-stop))
 
-;; Vterm
-(use-package vterm
-  :defer t)
+(use-package term
+  )
+
 
 (use-package magit
   )
