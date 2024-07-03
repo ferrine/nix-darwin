@@ -16,6 +16,7 @@ in
           unsetopt zle
           PS1='$ '
           # that's all we need, no extra
+          source $HOME/.zshenv
           return 0
         fi
       '';
