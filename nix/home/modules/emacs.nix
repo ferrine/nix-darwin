@@ -31,6 +31,7 @@ in
           with epkgs.melpaPackages; [
             nix-ts-mode
             elixir-ts-mode
+            protobuf-ts-mode
             telega
             projectile
             helm

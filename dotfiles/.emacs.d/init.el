@@ -104,6 +104,9 @@
 (use-package nix-ts-mode
   :mode "\\.nix\\'")
 
+(use-package protobuf-ts-mode
+  :mode "\\.proto\\'")
+
 ;; Helm related stuff
 
 (use-package helm
