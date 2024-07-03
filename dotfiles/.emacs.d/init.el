@@ -15,6 +15,19 @@
   ;; Load a light theme by default
   (load-theme 'modus-operandi t) ;; Ensure to use ' instead of ` for correct theme loading
 
+  ;; Define a mapping of major modes to their respective "ts" counterparts
+  (setq major-mode-remap-alist
+        '((yaml-mode . yaml-ts-mode)
+          (bash-mode . bash-ts-mode)
+          (js2-mode . js-ts-mode)
+          (typescript-mode . typescript-ts-mode)
+          (json-mode . json-ts-mode)
+          (css-mode . css-ts-mode)
+          (python-mode . python-ts-mode)
+          (elixir-mode . elixir-ts-mode)
+          (nix-mode . nix-ts-mode)
+          (js-mode . js-ts-mode)))
+
   :custom
   ;; Allow directory local variables for remote files
   (enable-remote-dir-locals t)
@@ -90,18 +103,6 @@
 
 (use-package nix-ts-mode
   :mode "\\.nix\\'")
-
-(setq major-mode-remap-alist
-      '((yaml-mode . yaml-ts-mode)
-        (bash-mode . bash-ts-mode)
-        (js2-mode . js-ts-mode)
-        (typescript-mode . typescript-ts-mode)
-        (json-mode . json-ts-mode)
-        (css-mode . css-ts-mode)
-        (python-mode . python-ts-mode)
-        (elixir-mode . elixir-ts-mode)
-        (nix-mode . nix-ts-mode)
-        (js-mode . js-ts-mode)))
 
 ;; Helm related stuff
 
