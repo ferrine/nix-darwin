@@ -1,29 +1,46 @@
-;; Theme
+
+;; Emacs built-in settings
 (use-package emacs
+  :init
+  ;; Disable the scroll bar to save screen space
+  (scroll-bar-mode -1)
+  ;; Enable display of time in the mode line
+  (display-time-mode t)
+
   :config
-  (add-to-list 'default-frame-alist '(font . "IBM Plex Mono" ))
+  ;; Set a default font for all frames
+  (add-to-list 'default-frame-alist '(font . "IBM Plex Mono"))
   (set-face-attribute 'default t :font "IBM Plex Mono")
-  (load-theme `modus-operandi)
+
+  ;; Load a light theme by default
+  (load-theme 'modus-operandi t) ;; Ensure to use ' instead of ` for correct theme loading
 
   :custom
+  ;; Allow directory local variables for remote files
   (enable-remote-dir-locals t)
+  ;; User email address and full name for various Emacs packages that use this information
   (user-mail-address "justferres@yandex.ru")
   (user-full-name "Max Kochurov")
+  ;; Use relative line numbers
   (display-line-numbers-type 'relative)
+  ;; Use spaces instead of tabs for indentation
   (indent-tabs-mode nil)
+  ;; Set directory for trashed files
   (trash-directory "~/.Trash")
-  (lock-file-name-transforms
-      '(("\\`\\(.+\\)\\'" "\\1~")))
-  (auto-save-list-file-prefix
-    (user-data "auto-save-list/.saves-"))
+  ;; Transform backup file names
+  (lock-file-name-transforms '(("\\`\\(.+\\)\\'" "\\1~")))
+  ;; Prefix for auto-save-list files
+  (auto-save-list-file-prefix (expand-file-name "auto-save-list/.saves-" user-emacs-directory))
+  ;; Set directory for backups
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
+  ;; Delete old backup versions without confirmation
   (delete-old-versions t)
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-ts-mode))
 
-
-  :init
-  (scroll-bar-mode -1)
-  (display-time-mode t))
+  ;; Extend auto-mode-alist to associate file extensions with modes
+  :hook
+  (typescript-mode
+   . (lambda ()
+       (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-ts-mode)))))
 
 ;; Clock
 
