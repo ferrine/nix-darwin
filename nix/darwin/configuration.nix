@@ -1,4 +1,5 @@
 { self, inputs, pkgs, ... }: {
+  nixpkgs.config.allowUnfree = true;
   imports = [ ];
   # https://mynixos.com/nix-darwin/options
   # List packages installed in system profile. To search by name, run:
