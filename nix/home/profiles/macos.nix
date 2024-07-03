@@ -5,7 +5,6 @@ in
 {
   options.stuff.profiles.macos.enable = lib.mkEnableOption "MacOS Configuration";
   config = lib.mkIf cfg.enable {
-    nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       raycast
     ];
