@@ -11,6 +11,14 @@ in
         theme = lib.mkDefault "nebirhos";
         plugins = [ "git" "sudo" ];
       };
+      initExtraFirst = ''
+        if [[ $TERM = dumb ]]; then
+          unsetopt zle
+          PS1='$ '
+          # that's all we need, no extra
+          return 0
+        fi
+      '';
     };
   };
 }

@@ -19,6 +19,7 @@
                 inherit (self.utils) dot;
               };
               useUserPackages = true;
+              useGlobalPkgs = true;
             };
           }
         ];
