@@ -55,8 +55,8 @@ lib.makeScope python3Packages.newScope (self:
     inherit commonPreBuildDarwinMinVersion;
   };
   bleak = self.callPackage ./bleak { };
-  ledgerblue = python3Packages.ledgerblue.overrideAttrs (attrs: {
-    buildInputs = attrs.buildInputs ++ [ self.bleak ];
+  ledgerblue = python3Packages.ledgerblue.overridePythonAttrs (attrs: {
+    dependencies = attrs.dependencies ++ [ self.bleak ];
   });
   ledger-agent = python3Packages.ledger-agent.override { inherit (self) ledgerblue; };
 })
