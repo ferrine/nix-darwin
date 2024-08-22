@@ -9,8 +9,8 @@
 
   :config
   ;; Set a default font for all frames
-  (add-to-list 'default-frame-alist '(font . "IBM Plex Mono"))
-  (set-face-attribute 'default t :font "IBM Plex Mono")
+  ;; (add-to-list 'default-frame-alist '(font . "IBM Plex Mono"))
+  ;; (set-face-attribute 'default t :font "IBM Plex Mono")
 
   ;; Load a light theme by default
   (load-theme 'modus-operandi t) ;; Ensure to use ' instead of ` for correct theme loading

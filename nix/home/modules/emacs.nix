@@ -45,15 +45,11 @@ in
             yasnippet-snippets
             git-modes
           ]
-        ) ++ (with pkgs; [
-          jdk17_headless
-          languagetool
-        ]);
+        );
       };
     };
     home.packages = with pkgs; [
       age
-      ibm-plex
     ];
     home.file = {
       ".emacs.d" = {
