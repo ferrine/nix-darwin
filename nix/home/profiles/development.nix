@@ -15,9 +15,11 @@ in
       eval "$(${pkgs.micromamba}/bin/micromamba shell hook --shell zsh)"
     '';
     home.packages = (with pkgs; [
+      pixi
       graphviz
       git-bug
       age
+      ripgrep
       micromamba
       poetry
       nix-init

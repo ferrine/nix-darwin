@@ -295,3 +295,7 @@
 
 (use-package git-modes
   )
+
+(use-package helm-projectile
+  :init
+  (helm-projectile-on))

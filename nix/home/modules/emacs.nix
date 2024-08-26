@@ -1,4 +1,3 @@
-
 { pkgs, config, lib, dot, inputs, ... }:
 let
   cfg = config.stuff.emacs;
@@ -35,9 +34,13 @@ in
             telega
             projectile
             helm
+            helm-projectile
+            helm-ag
+            helm-rg
             languagetool
             s
             ag
+            rg
             markdown-mode
             ethan-wspace
             agenix
