@@ -12,7 +12,7 @@ in
     programs = {
       emacs = {
         enable = lib.mkDefault true;
-        package = if isDarwin then pkgs.emacs29-macport else pkgs.emacs29;
+        package = pkgs.emacs29;
         extraConfig = ''
           (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8"
                                               "-cp" "${pkgs.languagetool}/share/languagetool-server.jar:${pkgs.languagetool}/share/languagetool-commandline.jar")

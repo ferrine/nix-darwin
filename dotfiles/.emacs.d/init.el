@@ -29,6 +29,17 @@
           (js-mode . js-ts-mode)))
 
   :custom
+  ;; Settings for the Cocoa port
+  (ns-alternate-modifier 'super)
+  (ns-command-modifier 'meta)
+  (ns-function-modifier 'hyper)
+  (ns-right-alternate-modifier 'super)
+
+  ;; Settings for the Emacs Mac-port
+  (mac-command-modifier 'meta)
+  (mac-option-modifier 'super)
+  (mac-pass-command-to-system nil)
+
   ;; Allow directory local variables for remote files
   (enable-remote-dir-locals t)
   ;; User email address and full name for various Emacs packages that use this information
