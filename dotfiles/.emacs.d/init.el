@@ -256,7 +256,13 @@
   (add-to-list 'projectile-other-file-alist '("html.heex" . ("ex")))
   (add-to-list 'projectile-other-file-alist '("html.leex" . ("ex")))
   (setq projectile-completion-system 'helm)
-  (setq projectile-switch-project-action #'projectile-dired))
+  (setq projectile-switch-project-action #'projectile-dired)
+  :custom
+  (projectile-project-root-files-functions
+   '(projectile-root-local
+     projectile-root-top-down
+     projectile-root-bottom-up
+     projectile-root-top-down-recurring)))
 
 ;; Writing
 
@@ -310,3 +316,30 @@
 (use-package helm-projectile
   :init
   (helm-projectile-on))
+
+
+(use-package org
+  :bind
+  ("C-c l" . 'org-store-link)
+  ("C-c a" . 'org-agenda)
+  ("C-c c" . 'org-capture)
+  :hook (org-mode . auto-revert-mode)
+  :config
+  (setq org-directory "~/Org/")
+  (setq org-agenda-files
+        `(,(concat org-directory "inbox.org")
+          ,(concat org-directory "tickler.org")
+          ,(concat org-directory "gtd.org")))
+  (setq org-capture-templates
+        `(("t" "Todo [inbox]" entry
+           (file+headline ,(concat org-directory "inbox.org") "Tasks")
+           "* TODO %i%?")
+          ("T" "Tickler" entry
+           (file+headline ,(concat org-directory "tickler.org") "Tickler")
+           "* %i%? \n %U")))
+  (setq org-refile-targets
+        `((,(concat org-directory "gtd.org") :maxlevel . 3)
+          (,(concat org-directory "someday.org") :level . 1)
+          (,(concat org-directory "tickler.org") :maxlevel . 2)
+          (,(concat org-directory "trash.org") :maxlevel . 1)))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
