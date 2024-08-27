@@ -1,3 +1,19 @@
+(defun set-exec-path-from-shell-PATH ()
+  "Set up Emacs' `exec-path' and PATH environment variable to match
+that used by the user's shell.
+
+This is particularly useful under Mac OS X and macOS, where GUI
+apps are not started from a shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string
+                          "[ \t\n]*$" "" (shell-command-to-string
+                                          "$SHELL --login -c 'echo $PATH'"
+                                                    ))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(set-exec-path-from-shell-PATH)
+
 
 ;; Emacs built-in settings
 (use-package emacs
@@ -319,6 +335,8 @@
 
 
 (use-package org
+  ;; Inspiration ideas
+  ;; https://github.com/abdalazizrashid/TREE-3/blob/main/users/aziz/.config/emacs/az-emacs.org
   :bind
   ("C-c l" . 'org-store-link)
   ("C-c a" . 'org-agenda)
@@ -327,19 +345,11 @@
   :config
   (setq org-directory "~/Org/")
   (setq org-agenda-files
-        `(,(concat org-directory "inbox.org")
-          ,(concat org-directory "tickler.org")
-          ,(concat org-directory "gtd.org")))
+        `(,(concat org-directory "universe.org")))
   (setq org-capture-templates
-        `(("t" "Todo [inbox]" entry
-           (file+headline ,(concat org-directory "inbox.org") "Tasks")
-           "* TODO %i%?")
-          ("T" "Tickler" entry
-           (file+headline ,(concat org-directory "tickler.org") "Tickler")
-           "* %i%? \n %U")))
+        `(("t" "TODO [inbox]" entry
+           (file+headline ,(concat org-directory "universe.org") "Inbox")
+           "* TODO %i%?\n added: %U")))
   (setq org-refile-targets
-        `((,(concat org-directory "gtd.org") :maxlevel . 3)
-          (,(concat org-directory "someday.org") :level . 1)
-          (,(concat org-directory "tickler.org") :maxlevel . 2)
-          (,(concat org-directory "trash.org") :maxlevel . 1)))
+        `((,(concat org-directory "universe.org") :maxlevel . 5)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
