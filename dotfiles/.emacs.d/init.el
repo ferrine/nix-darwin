@@ -1,3 +1,6 @@
+;; Garbage collect after startup
+;; (add-hook 'after-init-hook #'garbage-collect t)
+(defvar bootstrap-version)
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match
 that used by the user's shell.
@@ -13,6 +16,24 @@ apps are not started from a shell."
     (setq exec-path (split-string path-from-shell path-separator))))
 
 (set-exec-path-from-shell-PATH)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
 
 ;; Emacs built-in settings
@@ -45,6 +66,11 @@ apps are not started from a shell."
           (js-mode . js-ts-mode)))
 
   :custom
+  ;; mwheel.el
+  ;; TODO: disable keybindings to  mouse-wheel-global-text-scale
+  ;; and mouse-wheel-text-scale
+  (global-set-key (kbd "<C-wheel-up>") nil)
+  (global-set-key (kbd "<C-wheel-down>") nil)
   ;; Settings for the Cocoa port
   (ns-alternate-modifier 'super)
   (ns-command-modifier 'meta)
@@ -96,16 +122,6 @@ apps are not started from a shell."
           ("Asia/Bangkok" "AS/Bangkok")))
 
   (world-clock-time-format "%a, %d %b %I:%M %p %Z"))
-
-(use-package winner
-  :hook after-init
-  :commands (winner-undo winnner-redo)
-  :custom
-  (winner-boring-buffers '("*Completions*" "*Help*" "*Apropos*"
-                           "*Buffer List*" "*info*" "*Compile-Log*")))
-
-;; Developement
-
 
 ;; Tramp
 (use-package tramp
@@ -237,8 +253,6 @@ apps are not started from a shell."
             #'(lambda ()
                 (ibuffer-switch-to-saved-filter-groups "default"))))
 
-(load "~/.emacs.d/lib/helm-fzf.el")
-
 ;; IDE Features
 
 (use-package eglot
@@ -343,6 +357,7 @@ apps are not started from a shell."
   ("C-c c" . 'org-capture)
   :hook (org-mode . auto-revert-mode)
   :config
+  (require 'org-protocol)
   (setq org-directory "~/Org/")
   (setq org-agenda-files
         `(,(concat org-directory "universe.org")))
@@ -352,4 +367,5 @@ apps are not started from a shell."
            "* TODO %i%?\n added: %U")))
   (setq org-refile-targets
         `((,(concat org-directory "universe.org") :maxlevel . 5)))
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+  (setq org-preview-latex-default-process 'dvisvgm))

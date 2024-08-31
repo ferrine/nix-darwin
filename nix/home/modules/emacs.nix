@@ -1,14 +1,12 @@
 { pkgs, config, lib, dot, inputs, ... }:
 let
   cfg = config.stuff.emacs;
-  inherit (pkgs.stdenv) isDarwin;
 in
 {
   options.stuff.emacs = {
     enable = lib.mkEnableOption "Emacs configuration";
   };
   config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.emacs-packages.overlays.package ];
     programs = {
       emacs = {
         enable = lib.mkDefault true;
@@ -28,32 +26,11 @@ in
         ) ++ (
           # Smth else
           with epkgs.melpaPackages; [
-            nix-ts-mode
-            elixir-ts-mode
-            protobuf-ts-mode
-            telega
-            projectile
-            helm
-            helm-projectile
-            helm-ag
-            helm-rg
             languagetool
-            s
-            ag
-            rg
-            markdown-mode
-            ethan-wspace
-            agenix
-            yasnippet
-            yasnippet-snippets
-            git-modes
           ]
         );
       };
     };
-    home.packages = with pkgs; [
-      age
-    ];
     home.file = {
       ".emacs.d" = {
         source = (dot ".emacs.d");

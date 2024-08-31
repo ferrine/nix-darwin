@@ -14,6 +14,8 @@ in
     };
     home.packages = with pkgs; [
       gephi
+      (texliveFull.withPackages (tp: with tp; [dvipng]))
+      imagemagick
     ];
   };
 }
