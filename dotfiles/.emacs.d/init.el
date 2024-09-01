@@ -364,7 +364,7 @@ apps are not started from a shell."
   (setq org-capture-templates
         `(("t" "TODO [inbox]" entry
            (file+headline ,(concat org-directory "universe.org") "Inbox")
-           "* TODO %i%?\n added: %U")))
+           "* [%U]\nTODO %i%?")))
   (setq org-refile-targets
         `((,(concat org-directory "universe.org") :maxlevel . 5)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
