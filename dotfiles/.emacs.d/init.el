@@ -69,8 +69,6 @@ apps are not started from a shell."
   ;; mwheel.el
   ;; TODO: disable keybindings to  mouse-wheel-global-text-scale
   ;; and mouse-wheel-text-scale
-  (global-set-key (kbd "<C-wheel-up>") nil)
-  (global-set-key (kbd "<C-wheel-down>") nil)
   ;; Settings for the Cocoa port
   (ns-alternate-modifier 'super)
   (ns-command-modifier 'meta)
@@ -369,3 +367,9 @@ apps are not started from a shell."
         `((,(concat org-directory "universe.org") :maxlevel . 5)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
   (setq org-preview-latex-default-process 'dvisvgm))
+
+;; call those in the end to disable mouse zoom
+(global-unset-key (kbd "C-<wheel-down>"))
+(global-unset-key (kbd "C-<wheel-up>"))
+(global-unset-key (kbd "C-<mouse-5>"))
+(global-unset-key (kbd "C-<mouse-4>"))
