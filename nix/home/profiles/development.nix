@@ -18,6 +18,7 @@ in
       pixi
       graphviz
       git-bug
+      git-repo
       age
       ripgrep
       micromamba
