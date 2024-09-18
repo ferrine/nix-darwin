@@ -324,9 +324,6 @@ apps are not started from a shell."
   (yas-global-mode 1)
   (yas-reload-all))
 
-(use-package yasnippet-snippets
-  )
-
 (use-package git-modes
   )
 
