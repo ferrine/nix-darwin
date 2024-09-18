@@ -12,7 +12,6 @@ in
     home = {
       stateVersion = "24.05";
       packages = with self.legacyPackages.${pkgs.system}; [
-        localPython3Packages.ledger-agent
         localPkgs.netron
       ];
       sessionVariables = {

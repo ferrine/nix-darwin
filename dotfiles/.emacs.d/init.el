@@ -52,19 +52,6 @@ apps are not started from a shell."
   ;; Load a light theme by default
   (load-theme 'modus-operandi t) ;; Ensure to use ' instead of ` for correct theme loading
 
-  ;; Define a mapping of major modes to their respective "ts" counterparts
-  (setq major-mode-remap-alist
-        '((yaml-mode . yaml-ts-mode)
-          (bash-mode . bash-ts-mode)
-          (js2-mode . js-ts-mode)
-          (typescript-mode . typescript-ts-mode)
-          (json-mode . json-ts-mode)
-          (css-mode . css-ts-mode)
-          (python-mode . python-ts-mode)
-          (elixir-mode . elixir-ts-mode)
-          (nix-mode . nix-ts-mode)
-          (js-mode . js-ts-mode)))
-
   :custom
   ;; mwheel.el
   ;; TODO: disable keybindings to  mouse-wheel-global-text-scale
@@ -98,13 +85,7 @@ apps are not started from a shell."
   ;; Set directory for backups
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
   ;; Delete old backup versions without confirmation
-  (delete-old-versions t)
-
-  ;; Extend auto-mode-alist to associate file extensions with modes
-  :hook
-  (typescript-mode
-   . (lambda ()
-       (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescript-ts-mode)))))
+  (delete-old-versions t))
 
 ;; Clock
 
@@ -140,14 +121,6 @@ apps are not started from a shell."
   :config
   (setq tramp-lock-file-name-transforms '(("\\`\\(.+\\)\\'" "\\1~"))))
 
-;; Treesitter remapping
-
-(use-package nix-ts-mode
-  :mode "\\.nix\\'")
-
-(use-package protobuf-ts-mode
-  :mode "\\.proto\\'")
-
 ;; Helm related stuff
 
 (use-package helm
@@ -157,6 +130,12 @@ apps are not started from a shell."
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring))
+
+(use-package helm-ag
+  )
+(use-package helm-rg
+  )
+
 
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
@@ -253,10 +232,20 @@ apps are not started from a shell."
 
 ;; IDE Features
 
+(use-package dumb-jump
+  :config
+  (setq dumb-jump-force-searcher 'rg)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq xref-show-definitions-function 'xref-show-definitions-completing-read))
+
+(use-package treesit-auto
+  :config
+  (global-treesit-auto-mode))
+
 (use-package eglot
   :defer t
-  :hook ((python-ts-mode . eglot-ensure)
-         (nix-ts-mode . eglot-ensure))
+  :hook
+  (nix-ts-mode . eglot-ensure)
   :config
   (add-to-list
    'eglot-server-programs
