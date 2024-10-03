@@ -297,6 +297,9 @@ apps are not started from a shell."
 (use-package term
   )
 
+(use-package python-mode
+  :config
+  (setq python-indent-def-block-scale 1))
 
 (use-package magit
   )
