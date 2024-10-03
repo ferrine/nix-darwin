@@ -361,7 +361,9 @@ apps are not started from a shell."
   (setq org-refile-targets
         `((,(concat org-directory "universe.org") :maxlevel . 5)))
   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
-  (setq org-preview-latex-default-process 'dvisvgm))
+  (setq org-preview-latex-default-process 'dvisvgm)
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 1.5)))
 
 ;; call those in the end to disable mouse zoom
 (global-unset-key (kbd "C-<wheel-down>"))
