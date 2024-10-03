@@ -301,8 +301,11 @@ apps are not started from a shell."
   :config
   (setq python-indent-def-block-scale 1))
 
-(use-package nix-mode
+(use-package nix-ts-mode
   :mode ("\\.nix\\'" "\\.nix.in\\'"))
+
+(use-package elixir-ts-mode
+  )
 
 (use-package magit
   )
