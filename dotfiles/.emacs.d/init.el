@@ -368,6 +368,11 @@ apps are not started from a shell."
   (setq org-format-latex-options
         (plist-put org-format-latex-options :scale 1.5)))
 
+;; Setting up pdf-tools using use-package
+(use-package pdf-tools
+  :config
+  ;; Initialize pdf-tools
+  (pdf-tools-install))
 ;; call those in the end to disable mouse zoom
 (global-unset-key (kbd "C-<wheel-down>"))
 (global-unset-key (kbd "C-<wheel-up>"))
