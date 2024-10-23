@@ -394,6 +394,27 @@ apps are not started from a shell."
   ;; This hook enables pdf-tools integration with AUCTeX
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer))
+
+(use-package org-noter
+  )
+
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-database-connector 'sqlite-builtin)
+  (org-roam-directory "~/Notes")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n a" . org-roam-alias-add)
+         :map org-mode-map
+         ("C-M-i"    . completion-at-point))
+  :config
+  (org-roam-setup))
+
 ;; call those in the end to disable mouse zoom
 (global-unset-key (kbd "C-<wheel-down>"))
 (global-unset-key (kbd "C-<wheel-up>"))
