@@ -373,6 +373,27 @@ apps are not started from a shell."
   :config
   ;; Initialize pdf-tools
   (pdf-tools-install))
+;; AUCTeX and TeX configuration using use-package
+(use-package tex
+  :straight nil
+  :ensure auctex
+  :defer t
+  :hook ((LaTeX-mode . TeX-source-correlate-mode)
+         (LaTeX-mode . TeX-PDF-mode)
+         (LaTeX-mode . turn-on-reftex)
+         (LaTeX-mode . prettify-symbols-mode)
+         (LaTeX-mode . abbrev-mode)
+         (LaTeX-mode . xenops-mode))
+  :config
+  ;; Enable Synctex
+  (setq TeX-source-correlate-mode t
+        TeX-source-correlate-start-server t
+        TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-command-extra-options "--synctex=1")
+
+  ;; This hook enables pdf-tools integration with AUCTeX
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer))
 ;; call those in the end to disable mouse zoom
 (global-unset-key (kbd "C-<wheel-down>"))
 (global-unset-key (kbd "C-<wheel-up>"))
