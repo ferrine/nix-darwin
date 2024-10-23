@@ -349,7 +349,9 @@ apps are not started from a shell."
   ("C-c l" . 'org-store-link)
   ("C-c a" . 'org-agenda)
   ("C-c c" . 'org-capture)
-  :hook (org-mode . auto-revert-mode)
+  :hook (org-mode . (lambda ()
+                      (auto-revert-mode)
+                      (auto-fill-mode)))
   :config
   (require 'org-protocol)
   (setq org-directory "~/Org/")
