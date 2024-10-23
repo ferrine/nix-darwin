@@ -61,6 +61,7 @@ apps are not started from a shell."
   (ns-command-modifier 'meta)
   (ns-function-modifier 'hyper)
   (ns-right-alternate-modifier 'super)
+  (ns-use-native-fullscreen nil)
 
   ;; Settings for the Emacs Mac-port
   (mac-command-modifier 'meta)
