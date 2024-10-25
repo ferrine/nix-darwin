@@ -106,7 +106,7 @@ apps are not started from a shell."
 ;; Tramp
 (use-package tramp
   :custom
-  (tramp-default-method "ssh" "Use SSH as the default method for tramp.")
+  (tramp-default-method "scp" "Use SCP as the default method for tramp.")
   (tramp-ssh-controlmaster-options
    (concat "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
            "-o ControlMaster=auto "
@@ -298,6 +298,9 @@ apps are not started from a shell."
 (use-package term
   )
 
+(use-package vterm
+  )
+
 (use-package python-mode
   :config
   (setq python-indent-def-block-scale 1))
@@ -373,6 +376,10 @@ apps are not started from a shell."
   :config
   ;; Initialize pdf-tools
   (pdf-tools-install))
+
+(use-package xenops
+  )
+
 ;; AUCTeX and TeX configuration using use-package
 (use-package tex
   :straight nil

@@ -17,6 +17,12 @@ in
     home.packages = (with pkgs; [
       npins
       pixi
+      libtool
+      (libtool.overrideAttrs {
+        pname = "glibtool";
+        meta.mainProgram = "glibtool";
+        configureFlags = [ "--program-prefix=g" ];
+      })
       graphviz
       git-bug
       git-repo
