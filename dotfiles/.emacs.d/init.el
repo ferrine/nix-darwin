@@ -106,7 +106,7 @@ apps are not started from a shell."
 ;; Tramp
 (use-package tramp
   :custom
-  (tramp-default-method "scp" "Use SCP as the default method for tramp.")
+  (tramp-default-method "ssh" "Use SCP as the default method for tramp.")
   (tramp-ssh-controlmaster-options
    (concat "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
            "-o ControlMaster=auto "
@@ -295,8 +295,9 @@ apps are not started from a shell."
              languagetool-server-start
              languagetool-server-stop))
 
-(use-package term
-  )
+(use-package async
+  :init
+  (dired-async-mode 1))
 
 (use-package vterm
   )
