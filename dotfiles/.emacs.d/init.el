@@ -132,6 +132,7 @@ apps are not started from a shell."
 
 (use-package helm-ag
   )
+
 (use-package helm-rg
   )
 
@@ -502,8 +503,15 @@ apps are not started from a shell."
 (use-package gptel
   :after (password-store)
   :hook (gptel-mode . visual-line-mode)
+  :bind (("C-c g s" . gptel-send)
+         ("C-c g c" . gptel-menu)
+         ("C-c g a" . gptel-add)
+         ("C-c g /" . gptel-abort)
+         ("C-c g t" . gptel-org-set-topic))
   :config
   (setq gptel-default-mode 'org-mode)
+  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (setq-default gptel-backend (gptel-make-openai "VseGPT"
                                 :key (password-store-get "web/services/vsegpt.ru/key")
                                 :stream t
