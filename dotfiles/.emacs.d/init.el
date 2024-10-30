@@ -53,9 +53,6 @@ apps are not started from a shell."
   (load-theme 'modus-operandi t) ;; Ensure to use ' instead of ` for correct theme loading
 
   :custom
-  ;; mwheel.el
-  ;; TODO: disable keybindings to  mouse-wheel-global-text-scale
-  ;; and mouse-wheel-text-scale
   ;; Settings for the Cocoa port
   (ns-alternate-modifier 'super)
   (ns-command-modifier 'meta)
@@ -64,10 +61,23 @@ apps are not started from a shell."
   (ns-use-native-fullscreen nil)
 
   ;; Settings for the Emacs Mac-port
-  (mac-command-modifier 'meta)
+  ;; Settings for the MacPorts build of Emacs in Terminal
+  (mac-control-modifier 'control)
   (mac-option-modifier 'super)
-  (mac-pass-command-to-system nil)
+  (mac-command-modifier 'meta)
+  (mac-right-option-modifier 'super)
+  (mac-use-mac-modifier-symbols nil)
 
+  ;; Customize key bindings for Emacs in Terminal mode
+  ;; Remap 'Alt' key to 'Super'
+  (define-key key-translation-map (kbd "M-") (kbd "s-"))
+  ;; Remap 'Command' key to 'Meta'
+  (define-key key-translation-map (kbd "H-") (kbd "M-"))
+  ;; Remap 'fn' key to 'Hyper'
+  (define-key key-translation-map (kbd "<XF86Favorites>") 'event-apply-hyper-modifier)
+
+
+  (gc-cons-threshold 20000000)
   ;; Allow directory local variables for remote files
   (enable-remote-dir-locals t)
   ;; User email address and full name for various Emacs packages that use this information
