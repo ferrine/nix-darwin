@@ -236,8 +236,22 @@ apps are not started from a shell."
   (setq xref-show-definitions-function 'xref-show-definitions-completing-read))
 
 (use-package treesit-auto
+  :ensure t
+  :after emacs
+  :custom
+  (treesit-auto-install 'prompt)
   :config
-  (global-treesit-auto-mode))
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode t))
+
+(use-package nix-ts-mode
+  :mode ("\\.nix\\'" "\\.nix.in\\'"))
+
+(use-package elixir-ts-mode
+  )
+
+(use-package blueprint-ts-mode
+  :mode ("\\.blp\\'" "\\.bp\\'"))
 
 (use-package eglot
   :defer t
@@ -301,12 +315,6 @@ apps are not started from a shell."
 (use-package python-mode
   :config
   (setq python-indent-def-block-scale 1))
-
-(use-package nix-ts-mode
-  :mode ("\\.nix\\'" "\\.nix.in\\'"))
-
-(use-package elixir-ts-mode
-  )
 
 (use-package magit
   )
