@@ -105,20 +105,6 @@ apps are not started from a shell."
 
 ;; Tramp
 (use-package tramp
-  :custom
-  (tramp-default-method "ssh" "Use SCP as the default method for tramp.")
-  (tramp-ssh-controlmaster-options
-   (concat "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
-           "-o ControlMaster=auto "
-           "-o ControlPersist=yes")
-   "Options to enable SSH ControlMaster features in tramp.")
-  (tramp-remote-path
-   '(tramp-own-remote-path)
-   "Add Nix and user-specific binaries to the remote path.")
-
-  :init
-  (add-to-list 'debug-ignored-errors 'remote-file-error)
-
   :config
   (setq tramp-lock-file-name-transforms '(("\\`\\(.+\\)\\'" "\\1~"))))
 
