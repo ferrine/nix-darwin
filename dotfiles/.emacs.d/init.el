@@ -478,10 +478,23 @@ apps are not started from a shell."
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n a" . org-roam-alias-add)
+         ("C-c n c" . org-roam-capture)
          :map org-mode-map
          ("C-M-i"    . completion-at-point))
   :config
-  (org-roam-setup))
+  (setq org-roam-capture-templates
+        '(("d" "default" plain
+           "%?"
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("s" "Selection" plain
+           "%?"
+           :if-new (file+head "${slug}.org" "#+title: ${title}\n#+created: %U\n\n %i")
+           :named t
+           :unnarrowed t)))
+  (org-roam-setup)
+  (with-eval-after-load 'org-roam
+    (define-key minibuffer-local-completion-map (kbd "SPC") 'self-insert-command)))
 
 (use-package password-store
   )
