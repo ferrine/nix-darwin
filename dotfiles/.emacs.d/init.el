@@ -483,6 +483,22 @@ apps are not started from a shell."
   :config
   (org-roam-setup))
 
+(use-package password-store
+  )
+
+(use-package gptel
+  :after (password-store)
+  :hook (gptel-mode . visual-line-mode)
+  :config
+  (setq gptel-default-mode 'org-mode)
+  (setq-default gptel-backend (gptel-make-openai "VseGPT"
+                                :key (password-store-get "web/services/vsegpt.ru/key")
+                                :stream t
+                                :endpoint "/v1/chat/completions"
+                                :host "api.vsegpt.ru"
+                                :models '(openai/gpt-4o-mini))
+                gptel-model   'openai/gpt-4o-mini))
+
 ;; call those in the end to disable mouse zoom
 (global-unset-key (kbd "C-<wheel-down>"))
 (global-unset-key (kbd "C-<wheel-up>"))

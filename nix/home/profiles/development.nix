@@ -15,6 +15,8 @@ in
       eval "$(${pkgs.micromamba}/bin/micromamba shell hook --shell zsh)"
     '';
     home.packages = (with pkgs; [
+      gnupg1
+      pass
       npins
       pixi
       libtool
