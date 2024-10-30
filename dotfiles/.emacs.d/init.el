@@ -116,6 +116,8 @@ apps are not started from a shell."
 ;; Tramp
 (use-package tramp
   :config
+  (require 'ls-lisp)
+  (setq ls-lisp-use-insert-directory-program nil)
   (setq tramp-lock-file-name-transforms '(("\\`\\(.+\\)\\'" "\\1~"))))
 
 ;; Helm related stuff
@@ -285,8 +287,9 @@ apps are not started from a shell."
   (add-to-list 'projectile-other-file-alist '("html.leex" . ("ex")))
   (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action #'projectile-dired)
-  :custom
-  (projectile-project-root-files-functions
+  (setq projectile-project-root-files
+        '(".git" ".projectile"))
+  (setq projectile-project-root-files-functions
    '(projectile-root-local
      projectile-root-top-down
      projectile-root-bottom-up
