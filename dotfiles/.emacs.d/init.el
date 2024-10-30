@@ -280,7 +280,8 @@ apps are not started from a shell."
   (projectile-mode t)
   :bind ((:map projectile-mode-map
                ("M-p" . projectile-command-map))
-         ("M-p v" . 'magit))
+         ("M-p v" . 'magit)
+         ("M-p x v" . 'vterm-toggle))
   :config
   (add-to-list 'projectile-other-file-alist '("ex" . ("html.heex" "html.leex")))
   (add-to-list 'projectile-other-file-alist '("html.heex" . ("ex")))
@@ -313,7 +314,28 @@ apps are not started from a shell."
   (dired-async-mode 1))
 
 (use-package vterm
-  )
+  :config
+  (setq vterm-shell "zsh")
+  (setq vterm-tramp-shells
+        '(("docker" "/bin/sh")
+          ("ssh" "zsh"))))
+
+(use-package vterm-toggle
+  :after (projectile vterm)
+  :bind
+  (("C-c t"        . vterm-toggle)
+   :map vterm-mode-map
+   ("<C-return>" . vterm-toggle-insert-cd)
+   ("s-n" . vterm-toggle-forward)
+   ("s-p" . vterm-toggle-backward))
+  :config
+  (setq vterm-toggle-scope 'project)
+  (add-to-list 'display-buffer-alist
+     '("\*vterm\*"
+       (display-buffer-in-side-window)
+       (window-height . 0.3)
+       (side . bottom)
+       (slot . 0))))
 
 (use-package python-mode
   :config
