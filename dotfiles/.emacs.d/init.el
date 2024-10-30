@@ -253,7 +253,38 @@ apps are not started from a shell."
   )
 
 (use-package blueprint-ts-mode
-  :mode ("\\.blp\\'" "\\.bp\\'"))
+  )
+
+;; Android.bp
+(setq my/androidbp-tsauto-config
+      (make-treesit-auto-recipe
+       :lang 'android-bp                 ;; This is the language we are defining
+       :ts-mode 'androidbp-ts-mode      ;; This will be the mode that uses Tree-sitter
+       ;; Remap existing modes to use this new mode, if necessary
+       :remap nil                ;; If there are existing modes you want to remap, specify them here
+       ;; Specify the repository
+       :url "https://github.com/huanie/tree-sitter-bp"
+       :revision "master"        ;; Specify branch or commit you wish to use
+       :source-dir "src"         ;; Directory where source code is found
+       :ext "\\.bp\\'"           ;; File extension to consider
+       ))
+
+  ;; Add the new recipe to the Tree-sitter auto recipe list
+(add-to-list 'treesit-auto-recipe-list my/androidbp-tsauto-config)
+
+(defun androidbp-ts-mode ()
+  "Major mode for editing Blueprint files using Tree-sitter."
+  (interactive)
+  (kill-all-local-variables)
+  (setq major-mode 'androidbp-ts-mode)
+  (setq mode-name "Android.bp")
+  (setq-local tab-width 4)
+  ;; Add additional setup as needed
+  (run-mode-hooks 'androidbp-ts-mode-hook))
+
+;; Register the mode
+(define-derived-mode androidbp-ts-mode prog-mode "Android.bp"
+  "Major mode for editing Android.bp files.")
 
 (use-package eglot
   :defer t
