@@ -46,8 +46,18 @@ apps are not started from a shell."
 
   :config
   ;; Set a default font for all frames
-  ;; (add-to-list 'default-frame-alist '(font . "IBM Plex Mono"))
-  ;; (set-face-attribute 'default t :font "IBM Plex Mono")
+  (defun set-default-font-fallback (font fallback-font)
+    (if (member font (font-family-list))
+        (set-face-attribute 'default nil :font font)
+      (set-face-attribute 'default nil :font fallback-font)))
+
+  ;; Call the function with IBM Plex Mono and a fallback font (e.g., "Courier New")
+  (set-default-font-fallback "IBM Plex Mono" "Courier New")
+
+  ;; Optional: Ensure it applies to new frames
+  (add-to-list 'default-frame-alist `(font . ,(if (member "IBM Plex Mono" (font-family-list))
+                                                  "IBM Plex Mono"
+                                                "Courier New")))
 
   ;; Load a light theme by default
   (load-theme 'modus-operandi t) ;; Ensure to use ' instead of ` for correct theme loading
