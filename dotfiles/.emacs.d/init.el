@@ -117,7 +117,9 @@ apps are not started from a shell."
 (use-package tramp
   :config
   (require 'ls-lisp)
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (setq ls-lisp-use-insert-directory-program nil)
+  (setq vc-handled-backends nil)
   (setq tramp-lock-file-name-transforms '(("\\`\\(.+\\)\\'" "\\1~"))))
 
 ;; Helm related stuff
@@ -318,6 +320,7 @@ apps are not started from a shell."
   (add-to-list 'projectile-other-file-alist '("ex" . ("html.heex" "html.leex")))
   (add-to-list 'projectile-other-file-alist '("html.heex" . ("ex")))
   (add-to-list 'projectile-other-file-alist '("html.leex" . ("ex")))
+  (setq projectile-enable-caching t)
   (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action #'projectile-dired)
   (setq projectile-project-root-files
