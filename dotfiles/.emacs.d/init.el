@@ -507,7 +507,8 @@ apps are not started from a shell."
          ("C-c g c" . gptel-menu)
          ("C-c g a" . gptel-add)
          ("C-c g /" . gptel-abort)
-         ("C-c g t" . gptel-org-set-topic))
+         ("C-c g t" . gptel-org-set-topic)
+         ("C-c g RET" . gptel))
   :config
   (setq gptel-default-mode 'org-mode)
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
