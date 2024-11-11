@@ -526,12 +526,13 @@ apps are not started from a shell."
   (setq gptel-default-mode 'org-mode)
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-  (setq-default gptel-backend (gptel-make-openai "VseGPT"
-                                :key (password-store-get "web/services/vsegpt.ru/key")
+  (setq-default gptel-backend (gptel-make-openai "Qwen"
+                                :key (password-store-get "web/services/qwen/key")
                                 :stream t
+                                :protocol "http"
                                 :endpoint "/v1/chat/completions"
-                                :host "api.vsegpt.ru"
-                                :models '(openai/gpt-4o-mini))
+                                :host (password-store-get "web/services/qwen/host")
+                                :models '(Qwen/Qwen2.5-72B-Instruct))
                 gptel-model   'openai/gpt-4o-mini))
 
 ;; call those in the end to disable mouse zoom
