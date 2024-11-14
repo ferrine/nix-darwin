@@ -330,7 +330,7 @@ apps are not started from a shell."
   (add-to-list 'projectile-other-file-alist '("ex" . ("html.heex" "html.leex")))
   (add-to-list 'projectile-other-file-alist '("html.heex" . ("ex")))
   (add-to-list 'projectile-other-file-alist '("html.leex" . ("ex")))
-  (setq projectile-enable-caching t)
+  (setq projectile-enable-caching nil)
   (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action #'projectile-dired)
   (setq projectile-project-root-files
@@ -360,10 +360,16 @@ apps are not started from a shell."
 
 (use-package vterm
   :config
+  (defun vterm-copy-region-to-kill-ring (beg end)
+    (interactive "r")
+    (let ((text (buffer-substring-no-properties beg end)))
+      (kill-new text)))
+
+  (define-key vterm-mode-map (kbd "M-w") 'vterm-copy-region-to-kill-ring)
   (setq vterm-shell "zsh")
   (setq vterm-tramp-shells
-        '(("docker" "/bin/sh")
-          ("ssh" "zsh"))))
+        '(("docker" "sh")
+          ("ssh" "zsh" "bash"))))
 
 (use-package vterm-toggle
   :after (projectile vterm)
@@ -533,7 +539,7 @@ apps are not started from a shell."
                                 :endpoint "/v1/chat/completions"
                                 :host (password-store-get "web/services/qwen/host")
                                 :models '(Qwen/Qwen2.5-72B-Instruct))
-                gptel-model   'openai/gpt-4o-mini))
+                gptel-model   'Qwen/Qwen2.5-72B-Instruct))
 
 ;; call those in the end to disable mouse zoom
 (global-unset-key (kbd "C-<wheel-down>"))
