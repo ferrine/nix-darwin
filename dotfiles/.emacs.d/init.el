@@ -106,7 +106,12 @@ apps are not started from a shell."
   ;; Set directory for backups
   (backup-directory-alist '(("." . "~/.local/share/emacs/backups")))
   ;; Delete old backup versions without confirmation
-  (delete-old-versions t))
+  (delete-old-versions t)
+  (enable-recursive-minibuffers t)
+  ;; Hide commands in M-x which do not work in the current mode.  Vertico
+  ;; commands are hidden in normal buffers. This setting is useful beyond
+  ;; Vertico.
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
 ;; Clock
 
@@ -132,115 +137,47 @@ apps are not started from a shell."
   (setq vc-handled-backends nil)
   (setq tramp-lock-file-name-transforms '(("\\`\\(.+\\)\\'" "\\1~"))))
 
-;; Helm related stuff
+;; Search
 
-(use-package helm
-  :config
-  (global-set-key (kbd "M-g i") 'helm-imenu)
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (global-set-key (kbd "C-x b") 'helm-buffers-list)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring))
+(use-package ag)
+(use-package rg)
 
-(use-package helm-ag
-  )
+;; Completions
 
-(use-package helm-rg
-  )
-
-
-(use-package ibuffer
-  :bind ("C-x C-b" . ibuffer)
+(use-package vertico
   :custom
-  (ibuffer-default-display-maybe-show-predicates t)
-  (ibuffer-expert t)
-  (ibuffer-formats
-   '((mark modified read-only " "
-           (name 16 -1)
-           " "
-           (size 6 -1 :right)
-           " "
-           (mode 16 16)
-           " " filename)
-     (mark " "
-           (name 16 -1)
-           " " filename)))
-  (ibuffer-maybe-show-regexps nil)
-  (ibuffer-saved-filter-groups
-   '(("default"
-      ("Magit"
-       (or
-        (mode . magit-status-mode)
-        (mode . magit-log-mode)
-        (name . "\\*magit")
-        (name . "magit-")
-        (name . "git-monitor")))
-      ("Coq"
-       (or
-        (mode . coq-mode)
-        (name . "\\<coq\\>")
-        (name . "_CoqProject")))
-      ("Commands"
-       (or
-        (mode . shell-mode)
-        (mode . eshell-mode)
-        (mode . term-mode)
-        (mode . compilation-mode)))
-      ("Haskell"
-       (or
-        (mode . haskell-mode)
-        (mode . haskell-cabal-mode)
-        (mode . haskell-literate-mode)))
-      ("Rust"
-       (or
-        (mode . rust-mode)
-        (mode . cargo-mode)
-        (name . "\\*Cargo")
-        (name . "^\\*rls\\(::stderr\\)?\\*")))
-      ("Eglot"
-       (or
-        (name . "eglot")))
-      ("Nix"
-       (mode . nix-mode))
-      ("C++"
-       (or
-        (mode . c-mode)
-        (mode . c++-mode)))
-      ("Lisp"
-       (mode . emacs-lisp-mode))
-      ("Dired"
-       (mode . dired-mode))
-      ("Gnus"
-       (or
-        (mode . message-mode)
-        (mode . mail-mode)
-        (mode . gnus-group-mode)
-        (mode . gnus-summary-mode)
-        (mode . gnus-article-mode)
-        (name . "^\\.newsrc-dribble")
-        (name . "^\\*\\(sent\\|unsent\\|fetch\\)")
-        (name . "^ \\*\\(nnimap\\|nntp\\|nnmail\\|gnus\\|server\\|mm\\*\\)")
-        (name . "\\(Original Article\\|canonical address\\|extract address\\)")))
-      ("Org"
-       (or
-        (name . "^\\*Calendar\\*$")
-        (name . "^\\*Org Agenda")
-        (name . "^ \\*Agenda")
-        (name . "^diary$")
-        (mode . org-mode)))
-      ("Emacs"
-       (or
-        (name . "^\\*scratch\\*$")
-        (name . "^\\*Messages\\*$")
-        (name . "^\\*\\(Customize\\|Help\\)")
-        (name . "\\*\\(Echo\\|Minibuf\\)"))))))
-  (ibuffer-show-empty-filter-groups nil)
-  (ibuffer-shrink-to-minimum-size t t)
-  (ibuffer-use-other-window t)
+  (vertico-cycle t)
   :init
-  (add-hook 'ibuffer-mode-hook
-            #'(lambda ()
-                (ibuffer-switch-to-saved-filter-groups "default"))))
+  (vertico-mode))
+
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  :straight nil
+  ;; More convenient directory navigation commands
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  ;; Tidy shadowed file names
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package marginalia
+  :after vertico
+
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
 
 ;; IDE Features
 
@@ -331,7 +268,6 @@ apps are not started from a shell."
   (add-to-list 'projectile-other-file-alist '("html.heex" . ("ex")))
   (add-to-list 'projectile-other-file-alist '("html.leex" . ("ex")))
   (setq projectile-enable-caching nil)
-  (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action #'projectile-dired)
   (setq projectile-project-root-files
         '(".git" ".projectile"))
@@ -374,7 +310,7 @@ apps are not started from a shell."
 (use-package vterm-toggle
   :after (projectile vterm)
   :bind
-  (("C-c t"        . vterm-toggle)
+  (("C-c t"        . vterm-toggle-cd)
    :map vterm-mode-map
    ("<C-return>" . vterm-toggle-insert-cd)
    ("s-n" . vterm-toggle-forward)
@@ -420,10 +356,6 @@ apps are not started from a shell."
 
 (use-package git-modes
   )
-
-(use-package helm-projectile
-  :init
-  (helm-projectile-on))
 
 
 (use-package org
