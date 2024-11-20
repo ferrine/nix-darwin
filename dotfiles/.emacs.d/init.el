@@ -115,6 +115,15 @@ apps are not started from a shell."
   ;; Vertico.
   (read-extended-command-predicate #'command-completion-default-include-p))
 
+;; Buffer management
+
+(use-package buffer-move
+  :bind
+  ("<C-s-up>" . 'buf-move-up)
+  ("<C-s-down>" . 'buf-move-down)
+  ("<C-s-left>" . 'buf-move-left)
+  ("<C-s-right>" . 'buf-move-right))
+
 ;; Clock
 
 (use-package time
@@ -199,9 +208,8 @@ apps are not started from a shell."
 
 (use-package dumb-jump
   :config
-  (setq dumb-jump-force-searcher 'rg)
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  (setq xref-show-definitions-function 'xref-show-definitions-completing-read))
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 
 (use-package treesit-auto
   :ensure t
