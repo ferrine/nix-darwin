@@ -164,10 +164,24 @@ apps are not started from a shell."
   ;; Tidy shadowed file names
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
+(use-package vertico-mouse
+  :after vertico
+  :ensure nil
+  :straight nil
+  :config
+  (vertico-mouse-mode))
+
 (use-package orderless
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  :ensure t
+  :config
+  (orderless-define-completion-style orderless+initialism
+    (orderless-matching-styles '(orderless-initialism
+                                 orderless-literal
+                                 orderless-regexp)))
+  (setq completion-category-overrides
+        '((command (styles orderless+initialism))
+          (symbol (styles orderless+initialism))
+          (variable (styles orderless+initialism)))))
 
 (use-package savehist
   :init
