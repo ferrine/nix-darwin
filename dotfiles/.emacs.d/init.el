@@ -44,6 +44,8 @@ apps are not started from a shell."
   ;; Enable display of time in the mode line
   (display-time-mode t)
 
+  :hook
+  (prog-mode . display-line-numbers-mode)
   :config
   ;; Set a default font for all frames
   (defun set-default-font-fallback (font fallback-font)
