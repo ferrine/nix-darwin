@@ -34,7 +34,9 @@ apps are not started from a shell."
 
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
-
+(defun read-password-from-store (variable path)
+  (or (symbol-value variable)
+      (set variable (password-store-get path))))
 
 ;; Emacs built-in settings
 (use-package emacs
@@ -471,17 +473,35 @@ apps are not started from a shell."
          ("C-c g t" . gptel-org-set-topic)
          ("C-c g RET" . gptel))
   :config
+  ;; General settings
   (setq gptel-default-mode 'org-mode)
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+  ;; Ignore any other backed
+  (setq gptel--known-backends '())
+  (defvar gptel--self-hosted-key nil)
+  (defvar gptel--host-1 nil)
+  (defvar gptel--host-2 nil)
+  (read-password-from-store 'gptel--self-hosted-key "web/services/qwen/key")
+  (read-password-from-store 'gptel--host-1 "web/services/qwen/host")
+  (read-password-from-store 'gptel--host-2 "web/services/qwen-coder/host")
+  ;; Default backend
   (setq-default gptel-backend (gptel-make-openai "Qwen"
-                                :key (password-store-get "web/services/qwen/key")
+                                :key gptel--self-hosted-key
                                 :stream t
                                 :protocol "http"
                                 :endpoint "/v1/chat/completions"
-                                :host (password-store-get "web/services/qwen/host")
+                                :host gptel--host-1
                                 :models '(Qwen/Qwen2.5-72B-Instruct))
-                gptel-model   'Qwen/Qwen2.5-72B-Instruct))
+                gptel-model   'Qwen/Qwen2.5-72B-Instruct)
+  ;; Optional backends added to the list
+  (gptel-make-openai "Qwen-Coder"
+    :key gptel--self-hosted-key
+    :stream t
+    :protocol "http"
+    :endpoint "/v1/chat/completions"
+    :host gptel--host-2
+    :models '(Qwen/Qwen2.5-Coder-32B-Instruct)))
 
 ;; call those in the end to disable mouse zoom
 (global-unset-key (kbd "C-<wheel-down>"))
