@@ -187,10 +187,13 @@ apps are not started from a shell."
     (orderless-matching-styles '(orderless-initialism
                                  orderless-literal
                                  orderless-regexp)))
-  (setq completion-category-overrides
-        '((command (styles orderless+initialism))
-          (symbol (styles orderless+initialism))
-          (variable (styles orderless+initialism)))))
+  (setq
+   completion-styles '(orderless basic)
+   completion-category-overrides
+   '((file (styles partial-completion))
+     (command (styles orderless+initialism))
+     (symbol (styles orderless+initialism))
+     (variable (styles orderless+initialism)))))
 
 (use-package savehist
   :init
@@ -207,9 +210,12 @@ apps are not started from a shell."
 ;; IDE Features
 
 (use-package dumb-jump
+  :defer t
   :config
+  (require 'xref)
+  (setq xref-backend-functions (delq 'etags--xref-backend xref-backend-functions))
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+  (setq xref-show-definitions-function #'xref-show-definitions-buffer))
 
 (use-package treesit-auto
   :ensure t
@@ -259,26 +265,6 @@ apps are not started from a shell."
 ;; Register the mode
 (define-derived-mode androidbp-ts-mode prog-mode "Android.bp"
   "Major mode for editing Android.bp files.")
-
-(use-package eglot
-  :defer t
-  :hook
-  (nix-ts-mode . eglot-ensure)
-  :config
-  (add-to-list
-   'eglot-server-programs
-   '(nix-ts-mode
-     . ("nix-shell" "-p" "nixd" "--run" "nixd")))
-  (add-to-list
-   'eglot-server-programs
-   '((elixir-ts-mode heex-ts-mode)
-     ;; TODO remove elixir package from runtime shell
-     . ("nix-shell" "-p" "elixir-ls" "elixir" "--run" "elixir-ls")))
-  (setq-default
-   eglot-workspace-configuration
-   '(:nixd
-     (:nixpkgs
-      (:expr "import <nixpkgs> { }")))))
 
 (use-package projectile
   :init
